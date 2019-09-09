@@ -12,6 +12,8 @@ import { FooterComponent } from './footer/footer.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Page404Component } from './page404/page404.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { Page404Component } from './page404/page404.component';
     RecentPostComponent,
     FooterComponent,
     AboutusComponent,
-    Page404Component
+    Page404Component,
+    UserProfileComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

@@ -3,11 +3,13 @@ import{ RouterModule, Routes } from '@angular/router'
 import { RecentPostComponent } from './recent-post/recent-post.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { Page404Component } from './page404/page404.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const appRoutes: Routes = [
   {path:'', component: RecentPostComponent},
   {path:'home', component: RecentPostComponent},
   {path:'aboutus', component: AboutusComponent},
+  {path:'profile', component: UserProfileComponent},
   {path:'**', component: Page404Component}]
 
 
