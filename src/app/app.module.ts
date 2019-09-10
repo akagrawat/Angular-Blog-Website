@@ -14,6 +14,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { Page404Component } from './page404/page404.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { AdminComponent } from './admin/admin.component';
+import { NavigationComponent } from './admin/navigation/navigation.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { UsersComponent } from './admin/dashboard/users/users.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,12 @@ import { HeaderComponent } from './header/header.component';
     AboutusComponent,
     Page404Component,
     UserProfileComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    AdminComponent,
+    NavigationComponent,
+    DashboardComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
