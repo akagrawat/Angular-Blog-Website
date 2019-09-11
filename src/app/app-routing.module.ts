@@ -4,6 +4,7 @@ import { RecentPostComponent } from './recent-post/recent-post.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
+import { Page404Component } from './page404/page404.component';
 
 const appRoutes: Routes = [
   {path:'', component: RecentPostComponent},
@@ -11,6 +12,7 @@ const appRoutes: Routes = [
   {path:'aboutus', component: AboutusComponent},
   {path:'profile', component: UserProfileComponent},
   {path:'login', component: LoginComponent},
+  {path:'404', component: Page404Component},
 ]
 
 
