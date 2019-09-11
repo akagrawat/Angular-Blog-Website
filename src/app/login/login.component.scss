@@ -8,3 +8,13 @@
     background-size: cover;
     background-position: center center;
 }
+
+.ng-valid[required], .ng-valid.required  {
+    border-bottom: 3px solid #42A948; /* green */
+  }
+    
+  .ng-invalid:not(form)      {
+    border-bottom: 3px solid #a94442; /* red */
+  }
+  
+  //[ngStyle]="{'border-bottom':email.valid ? '3px solid #42A948': '3px solid #a94442'}"
