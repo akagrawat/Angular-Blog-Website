@@ -16,7 +16,12 @@ export class AppComponent {
         if (event instanceof NavigationStart) {
           if (event['url'] == '/admin') {
             this.showHead = false;
-          } else {
+          } else if(event['url'] == '/admin/dashboard'){
+            this.showHead = false;
+          }else if(event['url'] == '/admin/users'){
+            this.showHead = false;
+          }
+            else {
             // console.log("NU")
             this.showHead = true;
           }
