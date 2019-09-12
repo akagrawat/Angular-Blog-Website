@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   showHead: boolean = false;
 
@@ -27,5 +28,19 @@ export class AppComponent {
           }
         }
       });
+    }
+
+    ngOnInit(){
+      
+      let x =localStorage.getItem('users');
+       
+    
+      if(x == null)
+      {
+      console.log('empty');
+      }
+   
+
+     
     }
 }

@@ -12,7 +12,7 @@ currentUrl: any;
    }
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean{
-    if(this.authService.userStatus){
+    if(this.authService.isLoggedIn()) {
       return true;
     }
     this.router.navigate(['/login'], {queryParams:{returnUrl: state.url},  skipLocationChange: true});

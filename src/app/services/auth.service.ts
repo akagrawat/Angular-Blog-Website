@@ -1,34 +1,54 @@
 import { Injectable } from '@angular/core';
-import { users } from './login-mock';
-
+import { User } from '../shared/user';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
- userStatus:boolean;
-user:any;
-  constructor() {}
+  loginUrl:string = 'https://accedo-video-app-api.herokuapp.com/login'
+  userDetails:any;
+  user:any;
+  userStatus = false;
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  constructor(private http: HttpClient, private router: Router) {
+  }
+
+
+  // getUsers(): Observable<any>{
+  //   return this.http.post<any>(this.loginUrl, {
+  //     "username": "user@gmail.com",
+  //     "password": "1234567"
+  //   });
+  // } 
 
   login(data: any){
-   
-    for(let  mockData of users)
-    {
-    if( mockData.email == data.email && mockData.password == data.password){
-      console.log('login successfully');
-      this.userStatus = true;
-    }else{
-    console.log('Login unsccessful');
-    this.userStatus = false;
-    }
-  }
+    console.log(data);
+    return this.http.post<any>(this.loginUrl,  data);
 
   }
+
+  logout(){
+
+    localStorage.setItem('users','');
+    this.router.navigate(['/home']);
+  }
+
   isLoggedIn(){
-    if(this.userStatus){
+    this.user = localStorage.getItem('users');
+    if(this.user !== ''){
       return true;
     }
-    else{
+    else{ 
       return false;
     }
   }
 }
+  
+ 
+

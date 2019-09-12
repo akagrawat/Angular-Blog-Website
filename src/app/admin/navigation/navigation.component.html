@@ -58,14 +58,14 @@
                     <a class="nav-link" routerLink="/admin/users"  mdbWavesEffect>Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/admin/dashboard" mdbWavesEffect>Manager</a>
+                    <a class="nav-link"  mdbWavesEffect>Manager</a>
                 </li>
             </ul>
             <!-- Links -->
 
             <!-- Search form -->
-           <!-- <ul class="navbar-nav nav-flex-icons">
-
+           <ul class="navbar-nav nav-flex-icons">
+<!-- 
                     <li class="nav-item">
                         <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank" mdbWavesEffect>
                             <mdb-icon fab icon="facebook-f"></mdb-icon>
@@ -81,12 +81,12 @@
                             target="_blank" mdbWavesEffect>
                             <mdb-icon fab icon="github" class="mr-2"></mdb-icon>MDB GitHub
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
-                        <a href="https://mdbootstrap.com/products/angular-ui-kit/" class="ml-1 nav-link border border-light rounded" mdbWavesEffect>
-                            <mdb-icon far icon="gem" class=" left"></mdb-icon> Go Pro</a>
+                        <a (click)="logout()" class="ml-1 nav-link border border-light rounded" mdbWavesEffect>
+                            <mdb-icon far icon="gem" class=" left"></mdb-icon> Logout</a>
                     </li>
-                </ul> -->
+                </ul>
         </links>
         <!-- Collapsible content -->
 

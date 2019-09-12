@@ -16,6 +16,7 @@ import { Page404Component } from './page404/page404.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     AppRoutingModule,
     AdminModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

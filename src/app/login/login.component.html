@@ -20,7 +20,7 @@
 
             <!-- Email -->
             <div class="md-form">
-              <input type="email"  [(ngModel)]="loginData.email" #email="ngModel" name="email"
+              <input type="email"  [(ngModel)]="loginData.username" #username="ngModel" name="username"
                 id="materialLoginFormEmail" class="form-control" ngModel mdbInput required>
               <label for="materialLoginFormEmail">E-mail</label>
             </div>
@@ -89,3 +89,4 @@
 </div>
 
 <p>{{loginData | json}}</p>
+<p (click)= "display()">jfsjjsn</p>
