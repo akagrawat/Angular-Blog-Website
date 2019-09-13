@@ -12,6 +12,7 @@ export class SharedService {
   constructor() { 
     // this.user = JSON.parse( localStorage.getItem('users'));
     // console.log(this.user);
+    this.getLoginData();
   }
 
   getLoginData(){
