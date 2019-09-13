@@ -18,7 +18,7 @@ export class RoleGuard {
 
     if (this.user != '') {
       this.user = JSON.parse(localStorage.getItem('users'));
-      if (this.user.success.role == route.data.role) {
+      if (this.user.success.role == route.data.role || this.user.success.role == 'manager' ) {
         return true;
       }
       else {
