@@ -1,52 +1,72 @@
-  import { Component, OnInit } from '@angular/core';
-  import { users } from '../services/login-mock';
-  import { AuthService } from '../services/auth.service';
-  import { Router, ActivatedRoute } from '@angular/router';
-  import { User } from '../shared/user';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SharedService } from '../services/shared.service';
 
-  @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
-  })
-  export class LoginComponent implements OnInit {
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent implements OnInit {
 
-    loginData = { username: '', password: '' };
-    returnUrl: string;
-    userInfo: User;
+  loginData = { username: '', password: '' };
+  returnUrl: string;
+  invalidUser = '';
+  user: any;
 
-    constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private authService: AuthService, private router: Router,
+    private route: ActivatedRoute, private sharedService: SharedService) { }
 
-    ngOnInit() {
-      this.route.queryParams
-        .subscribe(params => this.returnUrl = params['returnUrl'] || '/');
-        if(localStorage.getItem('users')){
-          this.router.navigate(['profile']);
-        }
+  ngOnInit() {
+    // get current url to go back after login
+    this.route.queryParams
+      .subscribe(params => this.returnUrl = params['returnUrl'] || '/');
+
+    this.sharedService.data.subscribe(result => {
+      this.user = result
+    });
+
+    // Navigate user if already login
+    if (this.user) {
+      this.router.navigate(['profile']);
     }
-
-    onSubmit() {
-      console.log(this.loginData);
-      this.authService.login(this.loginData).subscribe(
-        data => {
-        localStorage.setItem('users',JSON.stringify( data));
-        let user = JSON.parse(localStorage.getItem('users'));
-        console.log(user.success.username);
-        if(user.success.role == 'admin'){
-          this.router.navigate(['admin'])
-        } else if(user.success.role == 'manager'){
-          this.router.navigate(['admin'])
-        }
-        else{
-        this.router.navigate(['profile']);
-        }
-    },
-        error =>{
-          console.log('error occurs');
-        }
-      );
-      
-    }
-
-  
   }
+
+  onSubmit() {
+    this.authService.login(this.loginData).subscribe(
+      data => {
+        if (data.success) {
+          console.log('Login successfully');
+          this.sharedService.updatedLoginData(data);
+          console.log(data);
+          localStorage.setItem('users', JSON.stringify(data));
+          let user = JSON.parse(localStorage.getItem('users'));
+
+          // redirect according to roles
+          if (user.success.role == 'admin') {
+            this.router.navigate(['admin'])
+          } else if (user.success.role == 'manager') {
+            this.router.navigate(['admin'])
+          }
+          else {
+            this.router.navigate(['profile']);
+          }
+        }
+
+        // error msg for invalide username & password 
+        if (!data.success) {
+          this.invalidUser = data;
+          console.log('Login unsccessfull');
+          console.log(data);
+        }
+      },
+      err => {
+        console.log('error occurs', err);
+      }
+    );
+
+  }
+
+
+}

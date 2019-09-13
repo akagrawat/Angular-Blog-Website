@@ -7,7 +7,6 @@ import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 export class AuthGuard {
 currentUrl: any;
   constructor(private router: Router, private authService: AuthService) {
-
     this.currentUrl = this.router.url;
    }
   

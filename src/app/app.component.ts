@@ -31,16 +31,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(){
-      
-      let x =localStorage.getItem('users');
-       
-    
-      if(x == null)
-      {
-      console.log('empty');
-      }
-   
-
      
     }
 }

@@ -17,10 +17,10 @@
           <!-- Form -->
           <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && onSubmit()" class="text-center"
             style="color: #757575;">
-
+          <p class="custom-p">{{invalidUser.error}}</p>
             <!-- Email -->
             <div class="md-form">
-              <input type="email"  [(ngModel)]="loginData.username" #username="ngModel" name="username"
+              <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [ngClass]="{ 'invalid' : (loginForm.submitted ||  username.touched ) && username.invalid }" [(ngModel)]="loginData.username" #username="ngModel" name="username"
                 id="materialLoginFormEmail" class="form-control" ngModel mdbInput required>
               <label for="materialLoginFormEmail">E-mail</label>
             </div>
@@ -33,7 +33,7 @@
 
             <!-- Password -->
             <div class="md-form">
-              <input type="password" [(ngModel)]="loginData.password" name="password" id="materialLoginFormPassword"
+              <input type="password" [ngClass]="{ 'invalid' : (loginForm.submitted ||  password.touched ) &&  password.invalid }" [(ngModel)]="loginData.password" #password="ngModel" name="password" id="materialLoginFormPassword"
                 class="form-control" mdbInput required>
               <label for="materialLoginFormPassword">Password</label>
             </div>
@@ -50,7 +50,7 @@
             </div>
 
             <!-- Sign in button -->
-            <button mdbBtn color="info" outline="true" rounded="true" block="true" class="my-4 waves-effect z-depth-0"
+            <button mdbBtn  color="info" outline="true" rounded="true" block="true" class="my-4 waves-effect z-depth-0"
               mdbWavesEffect type="submit">Sign in</button>
 
             <!-- Register -->
@@ -88,5 +88,3 @@
 
 </div>
 
-<p>{{loginData | json}}</p>
-<p (click)= "display()">jfsjjsn</p>
