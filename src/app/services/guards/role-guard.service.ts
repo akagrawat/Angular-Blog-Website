@@ -14,10 +14,10 @@ export class RoleGuard {
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    this.user = JSON.parse(localStorage.getItem('users'));
+    this.user = localStorage.getItem('users');
 
-    if (this.user != null) {
-      
+    if (this.user != '') {
+      this.user = JSON.parse(localStorage.getItem('users'));
       if (this.user.success.role == route.data.role) {
         return true;
       }

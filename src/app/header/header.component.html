@@ -24,14 +24,13 @@
     
       </ul>
       <!-- Links -->
-  
       <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item" *ngIf="user == null">
+        <li class="nav-item" *ngIf="!user">
           <a class="nav-link" routerLink="/login">
             <button mdbBtn type="button" class="custom-btn" size="sm" color="light" rounded="true" mdbWavesEffect>Login</button>
           </a>
         </li>
-        <li class="nav-item avatar dropdown" *ngIf="user != null" dropdown>
+        <li class="nav-item avatar dropdown" *ngIf="user" dropdown>
           <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
             <img width="30px" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="img-fluid rounded-circle z-depth-0"></a>
           <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">

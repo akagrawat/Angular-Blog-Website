@@ -33,22 +33,22 @@ export class AuthService {
   }
 
   logout(){
-    localStorage.setItem('users',null);
+    localStorage.setItem('users','');
     let user = localStorage.getItem('users');
     this.sharedService.updatedLoginData(user);
     this.router.navigate(['/home']);
   }
 
-  isLoggedIn(){
+  isLoggedIn(){ 
     this.user = localStorage.getItem('users');
-    if(this.user != null){
+    if(this.user != ''){
       return true;
     }
     else{ 
       return false;
     }
   }
-  
+
 }
   
  

@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.loginData).subscribe(
       data => {
+
         if (data.success) {
           console.log('Login successfully');
           this.sharedService.updatedLoginData(data);
@@ -44,11 +45,9 @@ export class LoginComponent implements OnInit {
           let user = JSON.parse(localStorage.getItem('users'));
 
           // redirect according to roles
-          if (user.success.role == 'admin') {
+          if (user.success.role == 'admin' || user.success.role == 'manager') {
             this.router.navigate(['admin'])
-          } else if (user.success.role == 'manager') {
-            this.router.navigate(['admin'])
-          }
+          } 
           else {
             this.router.navigate(['profile']);
           }

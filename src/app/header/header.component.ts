@@ -13,10 +13,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     // Access user value as observable
-        this.sharedService.data.subscribe(result => {
+        this.sharedService.getLoginData().subscribe(result => {
           console.log(result);
           this.user = result}); 
-  }
+}
 
   logout(){
     this.authService.logout();    

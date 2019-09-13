@@ -6,11 +6,19 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SharedService {
   user:any;
-   dataSource = new BehaviorSubject<any>(this.user);
-  data = this.dataSource.asObservable();
+  dataSource : any;
+  data : any;
 
   constructor() { 
-  
+    // this.user = JSON.parse( localStorage.getItem('users'));
+    // console.log(this.user);
+  }
+
+  getLoginData(){
+    this.user = localStorage.getItem('users');
+    this.dataSource = new BehaviorSubject<any>(this.user);
+    this.data = this.dataSource.asObservable();
+    return this.data;
   }
 
   updatedLoginData(data){
