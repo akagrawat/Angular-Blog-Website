@@ -1,14 +1,14 @@
-.edit{
-    cursor: pointer;
-}
-.row{
-    margin: 2%;
-}
 .dashboad-view{
     margin:20px;
 }
 mdb-card-body{
-    background: #ff5252;
+    background: #007bff;
     color: white;
     border-radius: 5px;
+}
+.row{
+    margin: 2%;
+}
+.modal-dialog{
+    max-width: 1100px;
 }

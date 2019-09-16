@@ -1,1 +1,131 @@
-<p>users works!</p>
+<div class="dashboad-view">
+    <!-- Heading -->
+    <mdb-card class="mb-4 wow fadeIn">
+    
+            <!--Card content-->
+            <mdb-card-body class="d-sm-flex justify-content-between">
+        
+                <h4 class="mb-sm-0 pt-3">
+                    <a target="_blank">User List</a>
+                </h4>
+                <a (click)="frame.show()" class="ml-1 nav-link border border-light rounded" mdbWavesEffect>
+                        <mdb-icon far icon="edit" class=" left"></mdb-icon> Add User</a>
+            </mdb-card-body>
+        
+        </mdb-card>
+        <!-- Heading -->
+    </div>
+
+
+<div class="row">
+<div class="container z-depth-1">
+  
+<table mdbTable striped="true">
+    <thead>
+      <tr>
+        <th >S.No</th>
+        <th >Name</th>
+        <th >Address</th>
+        <th >Email</th>
+        <th >Password</th>
+        <th >Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr mdbTableCol *ngFor="let user of users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.address}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.password}}</td> 
+        <td (click)="showData(user)"><mdb-icon id="edit" class="edit" fas icon="user-edit" size="lg" (click)="frame.show()"></mdb-icon></td>
+      </tr> 
+    </tbody>
+  </table>
+</div>
+</div>
+
+
+
+<div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Edit user</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+      <div class="modal-body mx-3">
+
+          <div class="md-form mb-4 ">
+              <mdb-icon fas icon="user-circle" class="prefix grey-text"></mdb-icon>
+              <input type="text" id="defaultForm-name"  formControlName="name" class="form-control"
+                     mdbInput mdbValidate>
+              <label for="defaultForm-name">Your name</label>
+            <!-- <mdb-error
+                *ngIf="userUpdateForm.controls['name'].errors">
+                Input invalid
+              </mdb-error>
+              <mdb-success
+                *ngIf="name.valid && (name.dirty || name.touched)">
+                Input valid
+              </mdb-success>  -->
+            </div>
+
+        <div class="md-form mb-4">
+          <mdb-icon fas icon="map-marker-alt" class="prefix grey-text"></mdb-icon>
+          <input type="text" id="defaultForm-address" formControlName="address" class="form-control"
+                 mdbInput mdbValidate>
+          <label for="defaultForm-address">Your address</label>
+          <!-- <mdb-error
+            *ngIf="!updateForm.address.valid && (updateForm.address.dirty || updateForm.address.touched)">
+            Input invalid
+          </mdb-error> -->
+          <!-- <mdb-success
+            *ngIf="name.valid && (name.dirty || name.touched)">
+            Input valid
+          </mdb-success>  -->
+        </div>
+
+        <div class="md-form mb-4">
+            <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+            <input type="email" id="defaultForm-email" formControlName="email" class="form-control"
+                   mdbInput mdbValidate>
+            <label for="defaultForm-email">Email</label>
+            <!-- <mdb-error
+              *ngIf="loginFormModalEmail.invalid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">
+              Input invalid
+            </mdb-error>
+            <mdb-success
+              *ngIf="loginFormModalEmail.valid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">Input
+              valid
+            </mdb-success> -->
+          </div>
+       
+          <div class="md-form mb-4">
+              <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+              <input type="password" id="defaultForm-pass" formControlName="password" class="form-control"
+                     mdbInput mdbValidate>
+              <label for="defaultForm-pass">Your password</label>
+              <!-- <mdb-error
+                *ngIf="name.invalid && (name.dirty || name.touched)">
+                Input invalid
+              </mdb-error>
+              <mdb-success
+                *ngIf="name.valid && (name.dirty || name.touched)">
+                Input valid
+              </mdb-success> -->
+            </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn type="submit"  color="default" class="waves-light" mdbWavesEffect>Save</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
