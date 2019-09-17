@@ -7,12 +7,19 @@ import { PostService } from '../services/post.service';
   styleUrls: ['./recent-post.component.scss']
 })
 export class RecentPostComponent implements OnInit {
-blogs:any;
+blogs = [];
 
   constructor(private postService: PostService) { }
 
   ngOnInit() {
-    this.blogs = this.postService.getPosts();
+    this.getFeaturedPost('Travel');
+    this.getFeaturedPost('food');
   }
+
+  getFeaturedPost(data)
+{
+  this.blogs.push(this.postService.getFeaturedPost(data));
+  console.log(this.blogs);
+}
 
 }

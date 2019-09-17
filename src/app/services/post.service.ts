@@ -11,4 +11,7 @@ export class PostService {
   getPosts(){
     return Blogs;
   }
+  getFeaturedPost(category) {
+    return Blogs.filter((data) => category == data.category )[0];
+  }
 }

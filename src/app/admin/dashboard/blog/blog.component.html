@@ -35,7 +35,7 @@
                 <td>{{blog.author}}</td>
                 <td>{{blog.category}}</td> 
                 <td>{{blog.date}}</td>
-                <td (click)="showData(blog)"><mdb-icon id="edit" class="edit" fas icon="user-edit" size="lg" (click)="frame.show()"></mdb-icon></td>
+                <td (click)="showData(blog)"><mdb-icon id="edit" class="edit" fas icon="edit" size="lg" (click)="frame.show()"></mdb-icon></td>
               </tr> 
             </tbody>
           </table>
@@ -54,7 +54,7 @@
         </button>
       </div>
 
-      <form [formGroup]="updateBlogForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
       <div class="modal-body mx-3">
 
           <div class="md-form mb-4 ">
@@ -62,14 +62,13 @@
               <input type="text" id="defaultForm-title"  formControlName="title" class="form-control"
                      mdbInput mdbValidate>
               <label for="defaultForm-title">Post Title</label>
-            <!-- <mdb-error
-                *ngIf="userUpdateForm.controls['name'].errors">
-                Input invalid
-              </mdb-error>
-              <mdb-success
-                *ngIf="name.valid && (name.dirty || name.touched)">
-                Input valid
-              </mdb-success>  -->
+              <mdb-error *ngFor="let validation of validationMsg">
+                  <span *ngFor="let msg of validation.title">
+                    <span  *ngIf="blogForm.get('title').hasError(msg.type) && (blogForm.get('title').dirty || blogForm.get('title').touched)">
+                        {{msg.message}}
+                    </span>
+                    </span>
+                  </mdb-error>
             </div>
 
         <div class="md-form mb-4">
@@ -77,14 +76,13 @@
           <input type="text" id="defaultForm-author" formControlName="author" class="form-control"
                  mdbInput mdbValidate>
           <label for="defaultForm-author">Author</label>
-          <!-- <mdb-error
-            *ngIf="!updateForm.address.valid && (updateForm.address.dirty || updateForm.address.touched)">
-            Input invalid
-          </mdb-error> -->
-          <!-- <mdb-success
-            *ngIf="name.valid && (name.dirty || name.touched)">
-            Input valid
-          </mdb-success>  -->
+          <mdb-error *ngFor="let validation of validationMsg">
+              <span *ngFor="let msg of validation.author">
+                <span  *ngIf="blogForm.get('author').hasError(msg.type) && (blogForm.get('author').dirty || blogForm.get('author').touched)">
+                    {{msg.message}}
+                </span>
+                </span>
+              </mdb-error>
         </div>
 
         <div class="md-form mb-4">
@@ -92,14 +90,13 @@
             <input type="text" id="defaultForm-category" formControlName="category" class="form-control"
                    mdbInput mdbValidate>
             <label for="defaultForm-category">Category</label>
-            <!-- <mdb-error
-              *ngIf="loginFormModalEmail.invalid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">
-              Input invalid
-            </mdb-error>
-            <mdb-success
-              *ngIf="loginFormModalEmail.valid && (loginFormModalEmail.dirty || loginFormModalEmail.touched)">Input
-              valid
-            </mdb-success> -->
+            <mdb-error *ngFor="let validation of validationMsg">
+                <span *ngFor="let msg of validation.category">
+                  <span  *ngIf="blogForm.get('category').hasError(msg.type) && (blogForm.get('category').dirty || blogForm.get('category').touched)">
+                      {{msg.message}}
+                  </span>
+                  </span>
+                </mdb-error>
           </div>
        
           <div class="md-form mb-4">
@@ -107,33 +104,31 @@
               <input type="file" id="defaultForm-image" formControlName="image"  
                      mdbInput mdbValidate>
               
-              <!-- <mdb-error
-                *ngIf="name.invalid && (name.dirty || name.touched)">
-                Input invalid
-              </mdb-error>
-              <mdb-success
-                *ngIf="name.valid && (name.dirty || name.touched)">
-                Input valid
-              </mdb-success> -->
+                     <mdb-error *ngFor="let validation of validationMsg">
+                        <span *ngFor="let msg of validation.image">
+                          <span  *ngIf="blogForm.get('image').hasError(msg.type) && (blogForm.get('image').dirty || blogForm.get('image').touched)">
+                              {{msg.message}}
+                          </span>
+                          </span>
+                        </mdb-error>
             </div>
             <div class="md-form mb-4">
                 <mdb-icon fas icon="paragraph" class="prefix grey-text"></mdb-icon>
                 <textarea type="text" id="form8" class="form-control" rows="5" mdbInput mdbValidate
                 formControlName="description" ></textarea>
                 <label for="defaultForm-description"> Description</label>
-                <!-- <mdb-error
-                  *ngIf="name.invalid && (name.dirty || name.touched)">
-                  Input invalid
-                </mdb-error>
-                <mdb-success
-                  *ngIf="name.valid && (name.dirty || name.touched)">
-                  Input valid
-                </mdb-success> -->
+                <mdb-error *ngFor="let validation of validationMsg">
+                    <span *ngFor="let msg of validation.description">
+                      <span  *ngIf="blogForm.get('description').hasError(msg.type) && (blogForm.get('description').dirty || blogForm.get('description').touched)">
+                          {{msg.message}}
+                      </span>
+                      </span>
+                    </mdb-error>
               </div>
 
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button mdbBtn type="submit" color="default" class="waves-light" mdbWavesEffect>Save</button>
+        <button mdbBtn [disabled]="!blogForm.valid" type="submit" color="default" class="waves-light" mdbWavesEffect>Save</button>
       </div>
       </form>
     </div>
