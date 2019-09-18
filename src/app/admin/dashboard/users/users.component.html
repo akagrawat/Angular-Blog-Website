@@ -17,30 +17,54 @@
   <!-- Heading -->
 </div>
 
-
+<!--  Messages -->
+<div class="container" *ngIf="createUserStatus" >
+        <div class="alert alert-success text-center" role="alert" style="font-weight: 400">
+            User created successfully   !!!!!
+        </div>
+      </div>
+      <div class="container" *ngIf="validUser !=0" >
+          <div class="alert alert-danger text-center" role="alert" style="font-weight: 400">
+              User already exist  !!!!!
+          </div>
+        </div>
+        <div class="container" *ngIf="userUpdateStatus" >
+            <div class="alert alert-success text-center" role="alert" style="font-weight: 400">
+                User updated successfully  !!!!!
+            </div>
+        </div>
+  
 <div class="row">
   <div class="container z-depth-1">
 
     <table mdbTable striped="true">
       <thead>
+          <div *ngIf="userDeleteStatus" class="alert custom-alert alert-success" role="alert">
+            User deleted successfully  !!!!!
+            </div>
         <tr>
-          <th>S.No</th>
+          <th>Id</th>
           <th>Name</th>
           <th>Address</th>
           <th>Email</th>
           <th>Password</th>
           <th>Edit</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
-        <tr mdbTableCol *ngFor="let user of users">
+            
+        <tr mdbTableCol *ngFor="let user of userList">
           <td>{{user._id}}</td>
           <td>{{user.firstname}} {{user.lastname}}</td>
           <td>{{user.address}}</td>
           <td>{{user.email}}</td>
           <td>{{user.password}}</td>
           <td (click)="showData(user)">
-            <mdb-icon id="edit" class="edit" fas icon="user-edit" size="lg" (click)="frame.show()"></mdb-icon>
+            <mdb-icon id="edit" class="edit" fas icon="user-edit" size="lg" (click)="frame.show();setData(user._id)"></mdb-icon>
+          </td>
+          <td style="padding: 18px 25px">
+            <mdb-icon id="edit" class="edit" fas icon="trash-alt"  size="lg" (click)="deleteModal.show();setData(user._id)"></mdb-icon>
           </td>
         </tr>
       </tbody>
@@ -49,7 +73,7 @@
 </div>
 
 
-
+<!-- Modal for add and update user-->
 <div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
   aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -61,7 +85,7 @@
         </button>
       </div>
 
-      <form novalidate [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+      <form novalidate [formGroup]="updateForm" >
         <div class="modal-body mx-3">
 
           <div class="md-form mb-4 ">
@@ -112,7 +136,7 @@
           <div class="md-form mb-4">
             <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
             <input type="email" id="defaultForm-email" formControlName="email" class="form-control" mdbInput mdbValidate
-              required>
+              [attr.disabled]="updateForm.get('email').value">
             <label for="defaultForm-email">Email</label>
             <mdb-error *ngFor="let validation of validationMsg">
                 <span *ngFor="let msg of validation.email">
@@ -138,10 +162,53 @@
           </div>
 
         </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button [disabled]="!updateForm.valid" mdbBtn type="submit" color="default" class="waves-light" mdbWavesEffect>Save</button>
+        <div class="modal-footer d-flex justify-content-center" *ngIf="!userDetail">
+          <button [disabled]="!updateForm.valid" (click)="onSubmit();frame.hide()" mdbBtn type="submit" color="default" class="waves-light" mdbWavesEffect>Save</button>
         </div>
+
+        <div class="modal-footer d-flex justify-content-center"  *ngIf="userDetail" >
+            <button [disabled]="!updateForm.valid" (click)="updateUser(this.updateForm.value);frame.hide()" mdbBtn type="submit" color="default" class="waves-light" mdbWavesEffect>Update</button>
+          </div>
+
       </form>
     </div>
+  </div>
+</div>
+
+<!-- Modal for delete confirmation message-->
+
+
+<div mdbModal #deleteModal="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" (open)="onOpen($event)">
+  <div class="modal-dialog modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading lead">Modal Success</p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="deleteModal.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body" >
+        <div class="text-center">
+          <mdb-icon fas icon="trash-alt" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
+          <h4> Are you sure</h4>
+          <p>You want to delete user ?</p>
+        </div>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn color="primary" (click)="deleteModal.hide()" class="waves-light" mdbWavesEffect>No
+        </a>
+        <a type="button" mdbBtn color="primary" (click)="deleteUser(userId);deleteModal.hide()" outline="true" class="waves-effect" mdbWavesEffect (click)="frame.hide()"
+          data-dismiss="modal">Yes</a>
+      </div>
+    </div>
+    <!--/.Content-->
   </div>
 </div>
