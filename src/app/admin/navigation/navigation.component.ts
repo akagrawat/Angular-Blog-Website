@@ -9,11 +9,20 @@ import { from } from 'rxjs';
 })
 export class NavigationComponent implements OnInit {
 
+userDetail: any;
+managerData:any;
+
   constructor(private authService: AuthService) {
 
    }
 
   ngOnInit() {
+    this.userDetail = JSON.parse( localStorage.getItem('users'));
+    if(this.userDetail.success){
+      (this.userDetail.success.role == "manager" ? this.managerData = this.userDetail.success.role : this.managerData = '' );
+    }
+
+    
   }
 
   logout(){

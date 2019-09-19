@@ -64,8 +64,8 @@ deleteUser(userId){
 this.usersService.deleteUser(userId).subscribe((data) => {
   console.log(data);
   this.getUsers();
-  this.userDeleteStatus = true
-  setTimeout(()=> this.userDeleteStatus = false, 1000)
+  this.userDeleteStatus = true;
+  setTimeout(()=> this.userDeleteStatus = false, 1000);
 })
 }
 
@@ -75,9 +75,11 @@ updateUser(data){
   let userData = {'id': this.userId, ...data};
   this.usersService.updateUser(userData).subscribe(
     (data)=> {
-      this.userUpdateStatus = true
+      this.userUpdateStatus = true;
+      setTimeout(()=> this.userUpdateStatus = false, 1000);
       console.log(data); 
-      this.getUsers();}
+      this.getUsers();
+    }
   )
   
   this.resetForm();  
@@ -114,6 +116,7 @@ createUpdateForm(){
 
 showData(data){
   this.updateForm.patchValue(data);
+  // userDetail used for show and hide to email and button fields(save & update) 
   this.userDetail  = data;
   
 }
@@ -146,6 +149,8 @@ setTimeout(()=> this.validUser = '', 1500)
 }
 resetForm(){
   this.updateForm.reset();
+
+  this.userDetail  = '';
 }
 
 onOpen(event: any) {

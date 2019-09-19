@@ -11,14 +11,14 @@
 
         <!-- user name-->
 
-        <h4 class="name text-center">Martha Smith</h4>
+        <h4 style="text-transform: capitalize" class="name text-center" >{{userDetail.success.role}}</h4>
 
 
         <div class="list-group list-group-flush">
             <a routerLink="/admin/dashboard" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
                 <mdb-icon fas icon="chart-pie" class="mr-3"></mdb-icon>Dashboard
             </a>
-            <a routerLink="/admin/users" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
+            <a *ngIf="!managerData" routerLink="/admin/users" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
                 <mdb-icon fas icon="user" class="mr-3"></mdb-icon>Users</a>
             <a routerLink="/admin/blog" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
                 <mdb-icon fas icon="table" class="mr-3"></mdb-icon>Blog</a>
@@ -54,8 +54,11 @@
                 <li class="nav-item">
                     <a class="nav-link"  routerLink="/admin/blog" mdbWavesEffect>Blog</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/admin/users"  mdbWavesEffect>Users</a>
+                <li class="nav-item" *ngIf="managerData">
+                    <a class="nav-link" routerLink="/admin/users" mdbPopover="You are not authorised to access users"
+                    placement="right"
+                    mdbPopoverHeader="Popover on right" mdbWavesEffect>Users</a>
+                   
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"  mdbWavesEffect>Manager</a>
@@ -83,6 +86,8 @@
                         </a>
                     </li> -->
                     <li class="nav-item">
+                            
+                        
                         <a (click)="logout()" class="ml-1 nav-link border border-light rounded" mdbWavesEffect>
                             <mdb-icon far icon="gem" class=" left"></mdb-icon> Logout</a>
                     </li>

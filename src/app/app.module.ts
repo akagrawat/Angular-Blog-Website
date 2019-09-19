@@ -18,6 +18,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PostComponent } from './post/post.component';
+import { ManagerGuard } from './services/guards/manager-guard.service';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { PostComponent } from './post/post.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ManagerGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

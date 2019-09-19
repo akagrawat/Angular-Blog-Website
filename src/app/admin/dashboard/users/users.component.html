@@ -133,10 +133,10 @@
                 </mdb-error>
           </div>
 
-          <div class="md-form mb-4">
+          <div class="md-form mb-4" *ngIf="!userDetail">
             <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
             <input type="email" id="defaultForm-email" formControlName="email" class="form-control" mdbInput mdbValidate
-              [attr.disabled]="updateForm.get('email').value">
+              >
             <label for="defaultForm-email">Email</label>
             <mdb-error *ngFor="let validation of validationMsg">
                 <span *ngFor="let msg of validation.email">
@@ -146,6 +146,22 @@
                   </span>
                 </mdb-error>
           </div>
+
+
+          <div class="md-form mb-4" *ngIf="userDetail">
+            <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+            <input type="email" id="defaultForm-email" formControlName="email" class="form-control" mdbInput mdbValidate
+            disabled>
+            <label for="defaultForm-email">Email</label>
+            <mdb-error *ngFor="let validation of validationMsg">
+                <span *ngFor="let msg of validation.email">
+                  <span  *ngIf="updateForm.get('email').hasError(msg.type) && (updateForm.get('email').dirty || updateForm.get('email').touched)">
+                      {{msg.message}}
+                  </span>
+                  </span>
+                </mdb-error>
+          </div>
+
 
           <div class="md-form mb-4">
             <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>

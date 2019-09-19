@@ -7,13 +7,14 @@ import { Page404Component } from '../page404/page404.component';
 import { AuthGuard } from '../services/guards/auth-guard.service';
 import { RoleGuard } from '../services/guards/role-guard.service';
 import { BlogComponent } from './dashboard/blog/blog.component';
+import { ManagerGuard} from '../../app/services/guards/manager-guard.service';
 const appRoutes: Routes = [
   {
-    path: 'admin', component: AdminComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'admin' },
+    path: 'admin', component: AdminComponent, canActivate: [AuthGuard, RoleGuard],
     children: [
       { path: '', component: DashboardComponent },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'users', component: UsersComponent },
+      { path: 'users', component: UsersComponent, canActivate: [ManagerGuard] },
       { path: 'blog', component: BlogComponent },
     ]
   },

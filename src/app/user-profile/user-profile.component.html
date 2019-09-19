@@ -13,7 +13,8 @@
 
             <!-- user name-->
 
-            <h4 class="name">Martha Smith</h4>
+            <h4 style="text-transform: capitalize" class="name">{{userDetails.firstname}} {{userDetails.lastname}}</h4>
+            <h5 >Email: {{userDetails.email}} </h5>
             <hr>
             <!--Quotation-->
             <p>
@@ -25,6 +26,133 @@
         </div>
 
         <!--button-->
+        <div class="container">
+            <div class="text-center">
+                <button mdbBtn color="primary" class="waves-light" type="button" (click)="test.toggle()" mdbWavesEffect>
+                        Edit Profile
+                      </button>
+                    </div>
+
+
+<!-- Modal for add and update user-->
+
+      
+<div class="container ">
+<div class="text-center" mdbCollapse #test="bs-collapse">
+        <mdb-card class="card"> 
+                <mdb-card-body>
+        <form novalidate [formGroup]="updateForm" >
+                <div class="modal-body mx-3">
+                  <div class="md-form mb-4 ">
+                    <mdb-icon fas icon="user-circle" class="prefix grey-text"></mdb-icon>
+                    <input type="text" id="defaultForm-firstname" formControlName="firstname" class="form-control" mdbInput mdbValidate
+                      required>
+                    <label for="defaultForm-firstname">Firstname</label>
+                    <mdb-error *ngFor="let validation of validationMsg">
+                      <span *ngFor="let msg of validation.firstname">
+                        <span  *ngIf="updateForm.get('firstname').hasError(msg.type) && (updateForm.get('firstname').dirty || updateForm.get('firstname').touched)">
+                            {{msg.message}}
+                        </span>
+                        </span>
+                      </mdb-error>
+        
+                  </div>
+        
+                  <div class="md-form mb-4 ">
+                      <mdb-icon fas icon="user-circle" class="prefix grey-text"></mdb-icon>
+                      <input type="text" id="defaultForm-lastname" formControlName="lastname" class="form-control" mdbInput mdbValidate
+                        required>
+                      <label for="defaultForm-name">Lastname</label>
+                      <mdb-error *ngFor="let validation of validationMsg">
+                        <span *ngFor="let msg of validation.lastname">
+                          <span  *ngIf="updateForm.get('lastname').hasError(msg.type) && (updateForm.get('lastname').dirty || updateForm.get('lastname').touched)">
+                              {{msg.message}}
+                          </span>
+                          </span>
+                        </mdb-error>
+          
+                    </div>
+        
+        
+                  <div class="md-form mb-4">
+                    <mdb-icon fas icon="map-marker-alt" class="prefix grey-text"></mdb-icon>
+                    <input type="text" id="defaultForm-address" formControlName="address" class="form-control" mdbInput
+                      mdbValidate required>
+                    <label for="defaultForm-address">Your address</label>
+                    <mdb-error *ngFor="let validation of validationMsg">
+                        <span *ngFor="let msg of validation.address">
+                          <span  *ngIf="updateForm.get('address').hasError(msg.type) && (updateForm.get('address').dirty || updateForm.get('address').touched)">
+                              {{msg.message}}
+                          </span>
+                          </span>
+                        </mdb-error>
+                  </div>
+        
+                  <div class="md-form mb-4" *ngIf="!userDetail">
+                    <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+                    <input type="email" id="defaultForm-email" formControlName="email" class="form-control" mdbInput mdbValidate
+                      >
+                    <label for="defaultForm-email">Email</label>
+                    <mdb-error *ngFor="let validation of validationMsg">
+                        <span *ngFor="let msg of validation.email">
+                          <span  *ngIf="updateForm.get('email').hasError(msg.type) && (updateForm.get('email').dirty || updateForm.get('email').touched)">
+                              {{msg.message}}
+                          </span>
+                          </span>
+                        </mdb-error>
+                  </div>
+        
+        
+                  <div class="md-form mb-4" *ngIf="userDetail">
+                    <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+                    <input type="email" id="defaultForm-email" formControlName="email" class="form-control" mdbInput mdbValidate
+                    disabled>
+                    <label for="defaultForm-email">Email</label>
+                    <mdb-error *ngFor="let validation of validationMsg">
+                        <span *ngFor="let msg of validation.email">
+                          <span  *ngIf="updateForm.get('email').hasError(msg.type) && (updateForm.get('email').dirty || updateForm.get('email').touched)">
+                              {{msg.message}}
+                          </span>
+                          </span>
+                        </mdb-error>
+                  </div>
+        
+        
+                  <div class="md-form mb-4">
+                    <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+                    <input type="password" id="defaultForm-pass" formControlName="password" class="form-control" mdbInput
+                      mdbValidate required>
+                    <label for="defaultForm-pass">Your password</label>
+                    <mdb-error *ngFor="let validation of validationMsg">
+                        <span *ngFor="let msg of validation.password">
+                          <span  *ngIf="updateForm.get('password').hasError(msg.type) && (updateForm.get('password').dirty || updateForm.get('password').touched)">
+                              {{msg.message}}
+                          </span>
+                          </span>
+                        </mdb-error>
+                  </div>
+        
+                </div>
+                <div class="modal-footer d-flex justify-content-center" *ngIf="!userDetail">
+                  <button [disabled]="!updateForm.valid" (click)="onSubmit();frame.hide()" mdbBtn type="submit" color="default" class="waves-light" mdbWavesEffect>Save</button>
+                </div>
+        
+                <div class="modal-footer d-flex justify-content-center"  *ngIf="userDetail" >
+                    <button [disabled]="!updateForm.valid" (click)="updateUser(this.updateForm.value);frame.hide()" mdbBtn type="submit" color="default" class="waves-light" mdbWavesEffect>Update</button>
+                  </div>
+        
+              </form>
+
+
+           
+        </mdb-card-body>
+    </mdb-card>
+</div>
+
+  </div>
+
+
+        </div>
         <div class="text-center">
             <a mdbBtn color="warning" size="lg" routerLink="/home" role="button" mdbWavesEffect>Cancel</a>
             <a mdbBtn color="default" size="lg" (click)="logout()" role="button" mdbWavesEffect>Logout</a>
@@ -32,3 +160,9 @@
 
     </div>
 </div>
+
+
+
+
+      
+    
