@@ -28,8 +28,8 @@ createUser(data): Observable<any>{
   return this.http.post<any>(this.createUserUrl, data, this.httpOptions );
 }
 
-updateUser(userData): Observable<any>{
-  return this.http.post<any>(this.updateUserUrl, userData);
+updateUser(userId,userData): Observable<any>{
+  return this.http.post<any>(this.updateUserUrl+ "/" + userId, userData);
 }
 deleteUser(userKey): Observable<any>{
   console.log(userKey);

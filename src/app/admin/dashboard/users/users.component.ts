@@ -72,8 +72,7 @@ this.usersService.deleteUser(userId).subscribe((data) => {
 updateUser(data){
   console.log(data);
   // set id at first position in object
-  let userData = {'id': this.userId, ...data};
-  this.usersService.updateUser(userData).subscribe(
+  this.usersService.updateUser( this.userId,data).subscribe(
     (data)=> {
       this.userUpdateStatus = true;
       setTimeout(()=> this.userUpdateStatus = false, 1000);

@@ -27,8 +27,15 @@
 
         <!--button-->
         <div class="container">
+           
+               
+                    
+
             <div class="text-center">
-                <button mdbBtn color="primary" class="waves-light" type="button" (click)="test.toggle()" mdbWavesEffect>
+                <button *ngIf="validUser.success.role == 'manager' || validUser.success.role == 'admin'" mdbBtn routerLink="/admin" color="primary" class="waves-light" type="button"  mdbWavesEffect>
+                    Admin Dashboard
+                  </button>
+                <button mdbBtn class="btn btn-unique" type="button" (click)="test.toggle()" mdbWavesEffect>
                         Edit Profile
                       </button>
                     </div>
@@ -88,10 +95,10 @@
                         </mdb-error>
                   </div>
         
-                  <div class="md-form mb-4" *ngIf="!userDetail">
+                  <div class="md-form mb-4" >
                     <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
                     <input type="email" id="defaultForm-email" formControlName="email" class="form-control" mdbInput mdbValidate
-                      >
+                    >
                     <label for="defaultForm-email">Email</label>
                     <mdb-error *ngFor="let validation of validationMsg">
                         <span *ngFor="let msg of validation.email">
@@ -103,21 +110,7 @@
                   </div>
         
         
-                  <div class="md-form mb-4" *ngIf="userDetail">
-                    <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
-                    <input type="email" id="defaultForm-email" formControlName="email" class="form-control" mdbInput mdbValidate
-                    disabled>
-                    <label for="defaultForm-email">Email</label>
-                    <mdb-error *ngFor="let validation of validationMsg">
-                        <span *ngFor="let msg of validation.email">
-                          <span  *ngIf="updateForm.get('email').hasError(msg.type) && (updateForm.get('email').dirty || updateForm.get('email').touched)">
-                              {{msg.message}}
-                          </span>
-                          </span>
-                        </mdb-error>
-                  </div>
-        
-        
+                  
                   <div class="md-form mb-4">
                     <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
                     <input type="password" id="defaultForm-pass" formControlName="password" class="form-control" mdbInput
@@ -133,12 +126,10 @@
                   </div>
         
                 </div>
-                <div class="modal-footer d-flex justify-content-center" *ngIf="!userDetail">
-                  <button [disabled]="!updateForm.valid" (click)="onSubmit();frame.hide()" mdbBtn type="submit" color="default" class="waves-light" mdbWavesEffect>Save</button>
-                </div>
+                
         
-                <div class="modal-footer d-flex justify-content-center"  *ngIf="userDetail" >
-                    <button [disabled]="!updateForm.valid" (click)="updateUser(this.updateForm.value);frame.hide()" mdbBtn type="submit" color="default" class="waves-light" mdbWavesEffect>Update</button>
+                <div class="modal-footer d-flex justify-content-center" >
+                    <button [disabled]="!updateForm.valid" (click)="updateUser(this.updateForm.value);" mdbBtn type="submit" color="default" class="waves-light" mdbWavesEffect>Update</button>
                   </div>
         
               </form>
@@ -154,7 +145,8 @@
 
         </div>
         <div class="text-center">
-            <a mdbBtn color="warning" size="lg" routerLink="/home" role="button" mdbWavesEffect>Cancel</a>
+            <a mdbBtn 
+           class="btn btn-amber"  size="lg" routerLink="/home" role="button" mdbWavesEffect>Cancel</a>
             <a mdbBtn color="default" size="lg" (click)="logout()" role="button" mdbWavesEffect>Logout</a>
         </div>
 

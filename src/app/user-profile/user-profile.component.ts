@@ -9,8 +9,9 @@ import { UsersService } from '../services/users.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  user:any;
-  userId:any;
+  validUser: any;
+  userList:any;
+  
 userDetails: any;
 updateForm: FormGroup;
 validationMsg = [
@@ -33,11 +34,7 @@ validationMsg = [
    {type: 'maxlength', message: 'Enter less than 25 characters'},
    {type: 'minlength', message: 'Enter minimum 5 characters'},],
   },
-  {'email': [ 
-   {type: 'required', message: 'Email is required'},
-   {type: 'pattern', message: 'Enter a valid Email'},
- ],
-  },
+
   {'password': [
    {type: 'required', message: 'Password is required'},
    {type: 'maxlength', message: 'Enter less than 15 characters'},
@@ -48,26 +45,33 @@ validationMsg = [
 
   ngOnInit() {
     this.createUpdateForm();
+   
 
-   this.userDetails = JSON.parse(localStorage.getItem('users'));
-   if(this.userDetails.success)
-   {
+   this.validUser = JSON.parse(localStorage.getItem('users'));
+
+   console.log(this.validUser);
+   if(this.validUser.success)
+   { // data get from auth api so convert it in required format
+
      this.userDetails = {
-       firstname: this.userDetails.success.role,
+       firstname: this.validUser.success.role,
        lastname: '',
-       email: this.userDetails.success.username,
+       email: this.validUser.success.username,
        address: 'India',
-       password: this.userDetails.success.password,
+       password: this.validUser.success.password,
         }
+        this.updateForm.patchValue(this.userDetails);
     } 
+
      else{
-       for(let user of this.userDetails ){
-         this.userDetails = user;
-       }
+       // data coming from userList api
+       this.getUserInfo();  
      }
 
-     this.updateForm.patchValue(this.userDetails);
+     
    }
+
+  
 
   logout(){
     this.authService.logout();
@@ -90,10 +94,7 @@ validationMsg = [
         Validators.minLength(5),
         Validators.required
       ])],
-      email: ['', Validators.compose([
-        Validators.required, 
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-      ])],
+    email:[{value:'' , disabled:true}],
       password: ['', Validators.compose([
         Validators.maxLength(15),
         Validators.minLength(5),
@@ -102,18 +103,52 @@ validationMsg = [
     })
   }
 
-  // updateUser(data){
-  //   console.log(data);
-  //   // set id at first position in object
-  //   let userData = {'id': this.userDetails., ...data};
-  //   this.usersService.updateUser(userData).subscribe(
-  //     (data)=> {
-  //       this.userUpdateStatus = true;
-  //       setTimeout(()=> this.userUpdateStatus = false, 1000);
-  //       console.log(data); 
-  //       this.getUsers();
-  //     }
-  //   )
+  getUserInfo(){
+
+    this.validUser = JSON.parse(localStorage.getItem('users'));
+    // get data from localstorage array
+    for(let user of this.validUser ){
+      this.userDetails = user;
+    }
+
+    // match api & localstorage data to get login user data from api
+    this.usersService.getUsers().subscribe((data) => {this.userList = data;
+      
+      this.userDetails = this.userList.filter((data)=> (  
+        this.userDetails.firstname == data.firstname ));
+       
+        // get data from userDetails array
+        for(let user of this.userDetails ){
+          this.userDetails = user;
+          
+        }
+        this.updateForm.patchValue(this.userDetails);
+           
+    });
+
+  }
+
+  updateUser(data){
+    console.log(this.userDetails);
+    if(this.validUser.success){
+    alert('You are not authorised to update data'); 
+    
+    }
+    else{
+    this.usersService.updateUser(this.userDetails._id,data).subscribe(
+      (data)=> {
+       // update localstorage data with new data
+        let userData = {'_id': this.userDetails._id, ...this.updateForm.value};
+        let localData  = [];
+        localData.push(userData);
+        localStorage.setItem('users', '');
+        localStorage.setItem('users',JSON.stringify( localData));
+        this.getUserInfo();
+        
+      });
+    }
   
+
+}
 
 }
