@@ -34,8 +34,8 @@
                 <td>{{blog.title}}</td>
                 <td>{{blog.author}}</td>
                 <td>{{blog.category}}</td> 
-                <td>{{blog.date}}</td>
-                <td (click)="showData(blog)"><mdb-icon id="edit" class="edit" fas icon="edit" size="lg" (click)="frame.show()"></mdb-icon></td>
+                <td>{{blog.created_date | date}}</td>
+                <td (click)="showData(blog)"><mdb-icon id="edit" class="edit" fas icon="edit" size="lg" (click)="frame.show();getBlogId(blog._id)"></mdb-icon></td>
               </tr> 
             </tbody>
           </table>
@@ -54,7 +54,7 @@
         </button>
       </div>
 
-      <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="blogForm">
       <div class="modal-body mx-3">
 
           <div class="md-form mb-4 ">
@@ -99,19 +99,19 @@
                 </mdb-error>
           </div>
        
-          <div class="md-form mb-4">
+          <!-- <div class="md-form mb-4">
               <mdb-icon fas icon="file-image" class="prefix grey-text"></mdb-icon>
               <input type="file" id="defaultForm-image" formControlName="image"  
                      mdbInput mdbValidate>
               
                      <mdb-error *ngFor="let validation of validationMsg">
-                        <span *ngFor="let msg of validation.image">
-                          <span  *ngIf="blogForm.get('image').hasError(msg.type) && (blogForm.get('image').dirty || blogForm.get('image').touched)">
+                        <span *ngFor="let msg of validation.imageUrl">
+                          <span  *ngIf="blogForm.get('imageUrl').hasError(msg.type) && (blogForm.get('imageUrl').dirty || blogForm.get('imageUrl').touched)">
                               {{msg.message}}
                           </span>
                           </span>
                         </mdb-error>
-            </div>
+            </div> -->
             <div class="md-form mb-4">
                 <mdb-icon fas icon="paragraph" class="prefix grey-text"></mdb-icon>
                 <textarea type="text" id="form8" class="form-control" rows="5" mdbInput mdbValidate
@@ -128,7 +128,10 @@
 
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button mdbBtn [disabled]="!blogForm.valid" type="submit" color="default" class="waves-light" mdbWavesEffect>Save</button>
+          <button mdbBtn [disabled]="!blogForm.valid" (click)="createBlog(this.blogForm.value); frame.hide()" type="submit" color="default" class="waves-light" mdbWavesEffect>Save</button>
+        </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn [disabled]="!blogForm.valid" (click)="updateBlog(this.blogForm.value); frame.hide()" type="submit" color="default" class="waves-light" mdbWavesEffect>Update</button>
       </div>
       </form>
     </div>

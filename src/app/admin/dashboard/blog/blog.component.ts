@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 export class BlogComponent implements OnInit {
  blogForm: FormGroup;
   blogs: any ;
+  blogId: any;
   validationMsg = [
     {
       'title':[
@@ -28,7 +29,7 @@ export class BlogComponent implements OnInit {
       {type: 'minlength', message: 'Enter minimum 3 characters'},
    ],
     },
-    {'image': [
+    {'imageUrl': [
      {type: 'required', message: 'Image is required'},
       ],
     },
@@ -43,7 +44,7 @@ export class BlogComponent implements OnInit {
               private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.blogs = this.postService.getPosts();
+   this.getBlogs();
     this.createBlogForm();
   }
 
@@ -63,15 +64,35 @@ export class BlogComponent implements OnInit {
         Validators.required, 
         
       ])],
-      image: ['', Validators.compose([
-        Validators.required
-      ])],
+      imageUrl: ['',],
       description: ['', Validators.compose([
         Validators.minLength(5),
         Validators.required
       ])],
     })
 
+  }
+  
+  getBlogs(){
+    this.postService.getPosts().subscribe((data) => {
+      this.blogs = data;
+    console.log(this.blogs);
+    })
+  }
+  getBlogId(key){
+ this.blogId = key;
+  }
+
+  updateBlog(data){
+
+    let blogData = {'id': this.blogId, ...data};
+    this.postService.updatePost(blogData).subscribe(
+      (data) => { console.log(data);
+        this.getBlogs()});
+  }
+  createBlog(data){
+    this.postService.createPost(data).subscribe(
+      (data) => {console.log(data); this.getBlogs()})
   }
   showData(data){
     this.blogForm.patchValue(data);
