@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../../services/post.service';
+import { SharedService } from '../../../services/shared.service';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 
 @Component({
@@ -8,63 +9,63 @@ import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
+Category: Array<any> = ['', 'Food', 'Travel', 'LifeStyle'];
  blogForm: FormGroup;
+ blogStatus: string = '';
   blogs: any ;
   blogId: any;
+  blogInfo: any;
+
   validationMsg = [
     {
       'title':[
       {type: 'required', message: 'Title is required'},
-      {type: 'maxlength', message: 'Enter less than 50 characters'},
+      {type: 'maxlength', message: 'Enter less than 300 characters'},
       {type: 'minlength', message: 'Enter minimum 5 characters'},]
     },
-    {'author': [
-     {type: 'required', message: 'Author is required'},
-     {type: 'maxlength', message: 'Enter less than 25 characters'},
-     {type: 'minlength', message: 'Enter minimum 3 characters'},],
-    },
+  
     {'category': [ 
       {type: 'required', message: 'Category is required'},
-      {type: 'maxlength', message: 'Enter less than 25 characters'},
-      {type: 'minlength', message: 'Enter minimum 3 characters'},
    ],
     },
     {'imageUrl': [
-     {type: 'required', message: 'Image is required'},
+      
+     {type: 'pattern', message: 'Enter a valid URL'},
       ],
     },
     {'description': [
       {type: 'required', message: 'Description required'},
-      {type: 'maxlength', message: 'Enter less than 200 characters'},
+      {type: 'maxlength', message: 'Enter less than 1000 characters'},
       {type: 'minlength', message: 'Enter minimum 5 characters'},],
      },
    ]
    
   constructor(private postService: PostService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder, private sharedService: SharedService ) { }
 
   ngOnInit() {
    this.getBlogs();
     this.createBlogForm();
+   
   }
 
   createBlogForm(){
     this.blogForm = this.fb.group({
       title: ['', Validators.compose([
-        Validators.maxLength(25),
+        Validators.maxLength(300),
         Validators.minLength(3),
         Validators.required
       ])],
       author: ['', Validators.compose([
-        Validators.maxLength(25),
+        Validators.maxLength(100),
         Validators.minLength(3),
-        Validators.required
+        
       ])],
       category: ['', Validators.compose([
         Validators.required, 
         
       ])],
-      imageUrl: ['',],
+      imageUrl: [''],
       description: ['', Validators.compose([
         Validators.minLength(5),
         Validators.required
@@ -76,9 +77,14 @@ export class BlogComponent implements OnInit {
   getBlogs(){
     this.postService.getPosts().subscribe((data) => {
       this.blogs = data;
-    console.log(this.blogs);
-    })
-  }
+      // set default url if blog doesn't have
+      for(let blog of this.blogs){
+      if(!blog.imageUrl){
+        blog.imageUrl = 'http://static1.squarespace.com/static/52406c2ae4b02a75078310d2/t/56047f6de4b0a2d546f00a58/1515523853963/';
+      }
+    }    
+});
+}
   getBlogId(key){
  this.blogId = key;
   }
@@ -88,14 +94,28 @@ export class BlogComponent implements OnInit {
     let blogData = {'id': this.blogId, ...data};
     this.postService.updatePost(blogData).subscribe(
       (data) => { console.log(data);
-        this.getBlogs()});
+        this.blogStatus = 'update';
+        this.getBlogs();
+      this.blogForm.reset();
+      setTimeout(()=> this.blogStatus = '', 1500)
+    });
   }
   createBlog(data){
+    let user  = JSON.parse(localStorage.getItem('users'));
+    let author = user.success.role;
+    data = {...data, 'author': author}
+    console.log(data);
+    // let blogData = { 'author': JSON.parse(localStorage.getItem)}
     this.postService.createPost(data).subscribe(
-      (data) => {console.log(data); this.getBlogs()})
+      (data) => {console.log(data); this.blogStatus = 'create'; 
+      this.getBlogs(); this.blogForm.reset();
+      setTimeout(()=> this.blogStatus = '', 1500)})
   }
   showData(data){
     this.blogForm.patchValue(data);
+    // Blog info used for show and hide  buttons fields(save & update)
+    this.blogInfo = data;
+
   
   }
 }

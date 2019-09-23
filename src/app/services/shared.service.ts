@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { PostService } from './post.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
   user:any;
+  blogs: any;
   dataSource : any;
+  blogSource : any;
   data : any;
 
-  constructor() { 
-    // this.user = JSON.parse( localStorage.getItem('users'));
-    // console.log(this.user);
+  constructor(private postService: PostService) { 
     this.getLoginData();
+    this.getBlogData();
   }
 
   getLoginData(){
@@ -23,6 +25,22 @@ export class SharedService {
   }
 
   updatedLoginData(data){
+    this.dataSource.next(data);
+  }
+
+getBlogData(){
+ this.postService.getPosts().subscribe(
+   (data) => {
+    this.blogSource = new BehaviorSubject<any>(data);
+  this.blogs = this.blogSource.asObservable(); 
+
+  }
+ )
+ return this.blogs;
+ 
+}
+
+  updateBlogData(data){
     this.dataSource.next(data);
   }
 }

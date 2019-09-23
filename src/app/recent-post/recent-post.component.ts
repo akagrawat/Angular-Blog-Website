@@ -8,18 +8,32 @@ import { PostService } from '../services/post.service';
 })
 export class RecentPostComponent implements OnInit {
 blogs = [];
-
+posts: any;
   constructor(private postService: PostService) { }
 
   ngOnInit() {
+    
+    this.getFeaturedPost('Food');
     this.getFeaturedPost('Travel');
-    this.getFeaturedPost('food');
+    this.getFeaturedPost('LifeStyle');
+
   }
 
-  getFeaturedPost(data)
-{
-  this.blogs.push(this.postService.getFeaturedPost(data));
-  console.log(this.blogs);
+  getPost(){
+    this.postService.getPosts().subscribe((data) => this.posts = data);
+  }
+
+  getFeaturedPost(category)
+{ 
+  this.postService.getPosts().subscribe((data) =>{
+     this.posts = data;
+       this.blogs.push(this.posts.filter((data) => category == data.category)[0]);
+       console.log(this.blogs)
+    });
+  
+
 }
+
+
 
 }

@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PostComponent } from './post/post.component';
 import { ManagerGuard } from './services/guards/manager-guard.service';
+import { PostDescriptionComponent } from './post/post-description/post-description.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ManagerGuard } from './services/guards/manager-guard.service';
     HeaderComponent,
     LoginComponent,
     PostComponent,
+    PostDescriptionComponent,
   ],
   imports: [
     BrowserModule,

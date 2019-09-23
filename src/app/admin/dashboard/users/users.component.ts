@@ -57,7 +57,15 @@ constructor(private fb: FormBuilder, private usersService: UsersService) {}
 }
 
 getUsers(){
-  this.usersService.getUsers().subscribe((data) => this.userList = data);
+  this.usersService.getUsers().subscribe((data) => {
+    this.userList = data;
+
+    // Set default address if user doesn't have 
+   for(let user of this.userList){
+     if(!user.address){
+       user.address = 'India';
+     }
+   }});
 }
 
 deleteUser(userId){

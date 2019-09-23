@@ -10,6 +10,7 @@ export class PostService {
 blogPostUrl: string = ' https://accedo-video-app-api.herokuapp.com/content';
 createPostUrl: string = ' https://accedo-video-app-api.herokuapp.com/content';
 updatePostUrl: string = ' https://accedo-video-app-api.herokuapp.com/content';
+postDescriptionUrl: string = 'https://accedo-video-app-api.herokuapp.com/content'
   constructor(private http: HttpClient) { }
 
   getPosts():Observable<any>{
@@ -23,7 +24,8 @@ updatePostUrl: string = ' https://accedo-video-app-api.herokuapp.com/content';
   updatePost(data):Observable<any>{
     return this.http.put<any>(this.blogPostUrl, data);
   }
-  getFeaturedPost(category) {
-    return Blogs.filter((data) => category == data.category )[0];
+ 
+  getPostById(key): Observable<any>{
+    return this.http.get<any>(this.postDescriptionUrl + "/" + key)
   }
 }

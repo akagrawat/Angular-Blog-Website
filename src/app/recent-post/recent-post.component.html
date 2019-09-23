@@ -16,12 +16,14 @@
     <!-- Grid row -->
     <div class="row" *ngFor="let blog of blogs; let i = index">
   
+      
       <!-- Grid column -->
-      <div class="col-lg-5" *ngIf="i<1">
+      <div class="col-lg-5" *ngIf="i<1">>
   
         <!-- Featured image -->
         <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
-          <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg" alt="Sample image">
+          <img class="img-fluid" *ngIf="blog.imgUrl" src={{blog.imgUrl}} alt="Sample image">
+          <img class="img-fluid" *ngIf="!blog.imgUrl" src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg" alt="Sample image">
           <a>
             <div class="mask rgba-white-slight"></div>
           </a>
@@ -31,20 +33,19 @@
       <!-- Grid column -->
   
       <!-- Grid column -->
-      <div class="col-lg-7"  *ngIf="i<1">
+      <div class="col-lg-7"   *ngIf="i< 1">
   
         <!-- Category -->
         <a href="#!" class="green-text">
           <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="utensils" class="pr-2"></mdb-icon>Food</h6>
         </a>
         <!-- Post title -->
-        <h3 class="font-weight-bold mb-3"><strong>{{blog.title}}</strong></h3>
+        <h3 class="font-weight-bold mb-3"><strong>{{blog.title}} </strong></h3>
         <!-- Excerpt -->
-        <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-          placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis.</p>
-        <!-- Post data -->
-        <p>by <a><strong>Carine Fox</strong></a>, 19/08/2018</p>
-        <!-- Read more button -->
+        <p >{{blog.description |  slice:0:270 }}</p>
+       
+        <p>by <a><strong>{{blog.author}}</strong></a>, {{blog.created_date | date}}</p>
+        <!-- Read more button --> 
         <a mdbBtn color="success" mdbWavesEffect>Read more</a>
   
       </div>
@@ -56,23 +57,21 @@
     <hr class="my-5">
   
     <!-- Grid row -->
-    <div class="row">
+    <div class="row" *ngFor="let blog of blogs ; let i = index">
   
       <!-- Grid column -->
-      <div class="col-lg-7">
+      <div class="col-lg-7" *ngIf="i>0 && i<2">
   
         <!-- Category -->
         <a href="#!" class="pink-text">
-          <h6 class="font-weight-bold mb-3"><mdb-icon far icon="image" class="pr-2"></mdb-icon>Lifestyle</h6>
+          <h6 class="font-weight-bold mb-3"><mdb-icon far icon="image" class="pr-2"></mdb-icon>Travel</h6>
         </a>
         <!-- Post title -->
-        <h3 class="font-weight-bold mb-3"><strong>Title of the news</strong></h3>
+        <h3 class="font-weight-bold mb-3"><strong>{{blog.key}}{{blog.title}}</strong></h3>
         <!-- Excerpt -->
-        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-          deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
-          provident.</p>
+        <p>{{blog.description | slice:0:270}}</p>
         <!-- Post data -->
-        <p>by <a><strong>Carine Fox</strong></a>, 14/08/2018</p>
+        <p>by <a><strong>{{blog.author}}</strong></a>, {{blog.created_date | date}}</p>
         <!-- Read more button -->
         <a mdbBtn color="pink" mdbWavesEffect class="mb-lg-0 mb-4">Read more</a>
   
@@ -80,11 +79,12 @@
       <!-- Grid column -->
   
       <!-- Grid column -->
-      <div class="col-lg-5">
+      <div class="col-lg-5" *ngIf="i>0 && i<2">
   
         <!-- Featured image -->
         <div class="view overlay rounded z-depth-2 waves-light" mdbWavesEffect>
-          <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/img%20(34).jpg" alt="Sample image">
+            <img class="img-fluid" *ngIf="blog.imgUrl" src={{blog.imgUrl}} alt="Sample image">
+            <img class="img-fluid" *ngIf="!blog.imgUrl" src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg" alt="Sample image">
           <a>
             <div class="mask rgba-white-slight"></div>
           </a>
@@ -99,14 +99,15 @@
     <hr class="my-5">
   
     <!-- Grid row -->
-    <div class="row">
+    <div class="row" *ngFor="let blog of blogs; let i = index">
   
       <!-- Grid column -->
-      <div class="col-lg-5">
+      <div class="col-lg-5"  *ngIf="i>1 && i<3"> >
   
         <!-- Featured image -->
         <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
-          <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/img (28).jpg" alt="Sample image">
+            <img class="img-fluid" *ngIf="blog.imgUrl" src={{blog.imgUrl}} alt="Sample image">
+            <img class="img-fluid" *ngIf="!blog.imgUrl" src="https://mdbootstrap.com/img/Photos/Others/img (28).jpg" alt="Sample image">
           <a>
             <div class="mask rgba-white-slight"></div>
           </a>
@@ -116,19 +117,18 @@
       <!-- Grid column -->
   
       <!-- Grid column -->
-      <div class="col-lg-7">
+      <div class="col-lg-7" *ngIf="i>1 && i<3"> 
   
         <!-- Category -->
         <a href="#!" class="indigo-text">
-          <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="suitcase" class="pr-2"></mdb-icon>Travels</h6>
+          <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="suitcase" class="pr-2"></mdb-icon>Lifestyle</h6>
         </a>
         <!-- Post title -->
-        <h3 class="font-weight-bold mb-3"><strong>Title of the news</strong></h3>
+        <h3 class="font-weight-bold mb-3"><strong>{{blog.title}}</strong></h3>
         <!-- Excerpt -->
-        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-          magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro qui dolorem ipsum quia sit amet.</p>
-        <!-- Post data -->
-        <p>by <a><strong>Carine Fox</strong></a>, 11/08/2018</p>
+        <p> {{blog.description | slice:0:270}}</p>
+       
+        <p>by <a><strong>{{blog.author}}</strong></a>,  {{blog.created_date | date}}</p>
         <!-- Read more button -->
         <a mdbBtn color="indigo" mdbWavesEffect>Read more</a>
   

@@ -19,7 +19,7 @@
       
             <!-- Featured image -->
             <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
-              <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg" alt="Sample image">
+              <img class="img-fluid" src={{blog.imageUrl}} alt="Sample image">
               <a>
                 <div class="mask rgba-white-slight"></div>
               </a>
@@ -33,16 +33,16 @@
       
             <!-- Category -->
             <a href="#!" class="green-text">
-              <h6 class="font-weight-bold mb-3"><mdb-icon fas icon="utensils" class="pr-2"></mdb-icon>Food</h6>
+              <h6 class="font-weight-bold mb-3"><mdb-icon fas clas    s="pr-2"></mdb-icon>{{blog.category}}</h6>
             </a>
             <!-- Post title -->
             <h3 class="font-weight-bold mb-3"><strong>{{blog.title}}</strong></h3>
             <!-- Excerpt -->
-            <p>{{blog.description}}</p>
+            <p>{{blog.description    |  slice:0:270}}</p>
             <!-- Post data -->
-            <p>by <a><strong>{{blog.author}}</strong></a>, 19/08/2018</p>
+            <p>by <a><strong>{{blog.author}}</strong></a>, {{blog.created_date | date}}</p>
             <!-- Read more button -->
-            <a mdbBtn color="success" mdbWavesEffect>Read more</a>
+            <a mdbBtn color="success" routerLink="/blog/{{blog._id }}" mdbWavesEffect>Read more</a>
       
           </div>
           <!-- Grid column -->

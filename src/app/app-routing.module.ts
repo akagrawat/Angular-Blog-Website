@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { Page404Component } from './page404/page404.component';
 import { from } from 'rxjs';
 import { PostComponent } from './post/post.component';
+import { PostDescriptionComponent } from './post/post-description/post-description.component';
 
 const appRoutes: Routes = [
   {path:'', component: RecentPostComponent},
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   {path:'profile', component: UserProfileComponent},
   {path:'login', component: LoginComponent},
   {path:'blog', component: PostComponent},
+  {path:'blog/:id', component: PostDescriptionComponent},
   {path:'404', component: Page404Component},
 ]
 
