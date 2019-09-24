@@ -61,10 +61,10 @@
           <td>{{user.email}}</td>
           <td>{{user.password}}</td>
           <td (click)="showData(user)">
-            <mdb-icon id="edit" class="edit" fas icon="user-edit" size="lg" (click)="frame.show();setId(user._id)"></mdb-icon>
+            <mdb-icon id="edit" class="edit" fas icon="user-edit" size="lg" (click)="frame.show();showData(user._id)"></mdb-icon>
           </td>
           <td style="padding: 18px 25px">
-            <mdb-icon id="edit" class="edit" fas icon="trash-alt"  size="lg" (click)="deleteModal.show();setData(user._id)"></mdb-icon>
+            <mdb-icon id="edit" class="edit" fas icon="trash-alt"  size="lg" (click)="deleteModal.show();setId(user._id)"></mdb-icon>
           </td>
         </tr>
       </tbody>
