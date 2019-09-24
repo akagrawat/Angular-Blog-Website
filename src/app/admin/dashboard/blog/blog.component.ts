@@ -9,12 +9,12 @@ import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
-Category: Array<any> = ['', 'Food', 'Travel', 'LifeStyle'];
+ Category: Array<any> = ['', 'Food', 'Travel', 'LifeStyle'];
  blogForm: FormGroup;
- blogStatus: string = '';
-  blogs: any ;
-  blogId: any;
-  blogInfo: any;
+ blogStatus: String = ''; 
+ blogs: any ; // blog list
+ blogId: String;
+ blogInfo: any;
 
   validationMsg = [
     {
@@ -41,11 +41,21 @@ Category: Array<any> = ['', 'Food', 'Travel', 'LifeStyle'];
    ]
    
   constructor(private postService: PostService,
-              private fb: FormBuilder, private sharedService: SharedService ) { }
+              private fb: FormBuilder, 
+              private sharedService: SharedService ) { }
 
   ngOnInit() {
-   this.getBlogs();
-    this.createBlogForm();
+    this.sharedService.getBlogData().subscribe((data) => {
+      this.blogs = data;
+      // set default url if blog doesn't have
+      for(let blog of this.blogs){
+      if(!blog.imageUrl){
+        blog.imageUrl = 'http://static1.squarespace.com/static/52406c2ae4b02a75078310d2/t/56047f6de4b0a2d546f00a58/1515523853963/';
+      }
+    }    
+});
+
+   this.createBlogForm();
    
   }
 
@@ -77,45 +87,46 @@ Category: Array<any> = ['', 'Food', 'Travel', 'LifeStyle'];
   getBlogs(){
     this.postService.getPosts().subscribe((data) => {
       this.blogs = data;
-      // set default url if blog doesn't have
-      for(let blog of this.blogs){
-      if(!blog.imageUrl){
-        blog.imageUrl = 'http://static1.squarespace.com/static/52406c2ae4b02a75078310d2/t/56047f6de4b0a2d546f00a58/1515523853963/';
-      }
-    }    
+      console.log(this.blogs);
+      this.sharedService.updateBlogData(this.blogs);   
 });
+
 }
   getBlogId(key){
  this.blogId = key;
   }
 
   updateBlog(data){
-
+    // Add id in data object
     let blogData = {'id': this.blogId, ...data};
     this.postService.updatePost(blogData).subscribe(
-      (data) => { console.log(data);
-        this.blogStatus = 'update';
-        this.getBlogs();
-      this.blogForm.reset();
+      (data) => {
+        this.blogStatus = 'update'; // show confirmation message
+      this.getBlogs();
+      this.resetForm();
       setTimeout(()=> this.blogStatus = '', 1500)
     });
   }
+
   createBlog(data){
     let user  = JSON.parse(localStorage.getItem('users'));
     let author = user.success.role;
     data = {...data, 'author': author}
-    console.log(data);
-    // let blogData = { 'author': JSON.parse(localStorage.getItem)}
+  
     this.postService.createPost(data).subscribe(
-      (data) => {console.log(data); this.blogStatus = 'create'; 
-      this.getBlogs(); this.blogForm.reset();
+      (data) => {this.blogStatus = 'create'; // show confirmation message
+      this.getBlogs(); this.resetForm();
       setTimeout(()=> this.blogStatus = '', 1500)})
   }
+
   showData(data){
     this.blogForm.patchValue(data);
     // Blog info used for show and hide  buttons fields(save & update)
     this.blogInfo = data;
-
-  
   }
+
+  resetForm(){
+    this.blogForm.reset();
+  }
+
 }

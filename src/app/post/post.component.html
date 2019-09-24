@@ -40,7 +40,7 @@
             <!-- Excerpt -->
             <p>{{blog.description    |  slice:0:270}}</p>
             <!-- Post data -->
-            <p>by <a><strong>{{blog.author}}</strong></a>, {{blog.created_date | date}}</p>
+            <p>by <a><strong style="text-transform: capitalize;color:#2196f3">{{blog.author}}</strong></a>, {{blog.created_date | date}}</p>
             <!-- Read more button -->
             <a mdbBtn color="success" routerLink="/blog/{{blog._id }}" mdbWavesEffect>Read more</a>
       

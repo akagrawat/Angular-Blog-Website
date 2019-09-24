@@ -12,24 +12,26 @@ import { UsersService} from '../services/users.service';
 export class LoginComponent implements OnInit {
 
   loginData = { username: '', password: '' };
-  returnUrl: string;
-  invalidUser = '';
+  returnUrl: String;
+  invalidUser: String = '';
   user: any;
   userList:any;
 
-  constructor(private authService: AuthService, private router: Router,
-    private route: ActivatedRoute, private sharedService: SharedService,
-    private usersServices: UsersService) { }
+  constructor(private authService: AuthService,
+              private router: Router,
+              private route: ActivatedRoute, 
+              private sharedService: SharedService,
+              private usersServices: UsersService) { }
 
   ngOnInit() {
     // get current url to go back after login
     this.route.queryParams
       .subscribe(params => this.returnUrl = params['returnUrl'] || '/');
 
-      this.usersServices.getUsers().subscribe((data) => {this.userList = data; console.log(this.userList);});
+      this.usersServices.getUsers().subscribe(
+        (data) => this.userList = data);
       
-
-    this.sharedService.data.subscribe(result => {
+    this.sharedService.getLoginData().subscribe(result => {
       this.user = result;
     });
 
@@ -47,7 +49,6 @@ export class LoginComponent implements OnInit {
         if (data.success) {
           console.log('Login successfully');
           this.sharedService.updatedLoginData(data);
-          console.log(data);
           localStorage.setItem('users', JSON.stringify(data));
           let user = JSON.parse(localStorage.getItem('users'));
 
@@ -62,7 +63,8 @@ export class LoginComponent implements OnInit {
 
         if(data.error){
           // check user in user list
-          userInfo =this.userList.filter((data)=> (this.loginData.username == data.email &&
+          userInfo =this.userList.filter(
+            (data)=> (this.loginData.username == data.email &&
             this.loginData.password == data.password ));
 
   

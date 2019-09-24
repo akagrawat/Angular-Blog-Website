@@ -40,6 +40,7 @@
                 <th >Category</th>
                 <th >Date</th>
                 <th>Edit</th>
+                <th>View</th>
               
               </tr>
             </thead>
@@ -51,6 +52,7 @@
                 <td>{{blog.category}}</td> 
                 <td>{{blog.created_date | date}}</td>
                 <td (click)="showData(blog)"><mdb-icon id="edit" class="edit" fas icon="edit" size="lg" (click)="frame.show();getBlogId(blog._id)"></mdb-icon></td>
+                <td ><mdb-icon size="lg" class="edit" fas icon="eye" routerLink="/blog/{{blog._id}}"></mdb-icon></td>
               </tr> 
             </tbody>
           </table>
@@ -64,7 +66,7 @@
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">Post</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide();resetForm()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

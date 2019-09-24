@@ -24,15 +24,14 @@ getUsers(): Observable<any>{
 }
 
 createUser(data): Observable<any>{
-  console.log(data);
   return this.http.post<any>(this.createUserUrl, data, this.httpOptions );
 }
 
 updateUser(userId,userData): Observable<any>{
   return this.http.post<any>(this.updateUserUrl+ "/" + userId, userData);
 }
+
 deleteUser(userKey): Observable<any>{
-  console.log(userKey);
   return this.http.delete<any>(this.deleteUserUrl + "/" + userKey)
 }
 

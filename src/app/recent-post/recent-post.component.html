@@ -2,6 +2,7 @@
     <img src="../assets/image/b3.jpg"  class="img-fluid" alt="Responsive image">
   </div>
 
+  
 <div class="container">
 <!-- Section: Blog v.1 -->
 <section class="my-5">
@@ -18,12 +19,12 @@
   
       
       <!-- Grid column -->
-      <div class="col-lg-5" *ngIf="i<1">>
+      <div class="col-lg-5" *ngIf="i<1">
   
         <!-- Featured image -->
         <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
-          <img class="img-fluid" *ngIf="blog.imgUrl" src={{blog.imgUrl}} alt="Sample image">
-          <img class="img-fluid" *ngIf="!blog.imgUrl" src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg" alt="Sample image">
+          <img class="img-fluid" *ngIf="blog.imageUrl" src={{blog.imageUrl}} alt="Sample image">
+          <img class="img-fluid" *ngIf="!blog.imageUrl" src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg" alt="Sample image">
           <a>
             <div class="mask rgba-white-slight"></div>
           </a>
@@ -44,9 +45,9 @@
         <!-- Excerpt -->
         <p >{{blog.description |  slice:0:270 }}</p>
        
-        <p>by <a><strong>{{blog.author}}</strong></a>, {{blog.created_date | date}}</p>
+        <p>by <a><strong style="text-transform: capitalize">{{blog.author}}</strong></a>, {{blog.created_date | date}}</p>
         <!-- Read more button --> 
-        <a mdbBtn color="success" mdbWavesEffect>Read more</a>
+        <a mdbBtn color="success" routerLink="/blog/{{blog._id }}" mdbWavesEffect>Read more</a>
   
       </div>
       <!-- Grid column -->
@@ -71,9 +72,9 @@
         <!-- Excerpt -->
         <p>{{blog.description | slice:0:270}}</p>
         <!-- Post data -->
-        <p>by <a><strong>{{blog.author}}</strong></a>, {{blog.created_date | date}}</p>
+        <p>by <a><strong style="text-transform: capitalize">{{blog.author}}</strong></a>, {{blog.created_date | date}}</p>
         <!-- Read more button -->
-        <a mdbBtn color="pink" mdbWavesEffect class="mb-lg-0 mb-4">Read more</a>
+        <a mdbBtn color="pink" routerLink="/blog/{{blog._id }}" mdbWavesEffect class="mb-lg-0 mb-4">Read more</a>
   
       </div>
       <!-- Grid column -->
@@ -83,8 +84,8 @@
   
         <!-- Featured image -->
         <div class="view overlay rounded z-depth-2 waves-light" mdbWavesEffect>
-            <img class="img-fluid" *ngIf="blog.imgUrl" src={{blog.imgUrl}} alt="Sample image">
-            <img class="img-fluid" *ngIf="!blog.imgUrl" src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg" alt="Sample image">
+            <img class="img-fluid" *ngIf="blog.imageUrl" src={{blog.imageUrl}} alt="Sample image">
+            <img class="img-fluid" *ngIf="!blog.imageUrl" src="https://mdbootstrap.com/img/Photos/Others/img%20(27).jpg" alt="Sample image">
           <a>
             <div class="mask rgba-white-slight"></div>
           </a>
@@ -102,12 +103,12 @@
     <div class="row" *ngFor="let blog of blogs; let i = index">
   
       <!-- Grid column -->
-      <div class="col-lg-5"  *ngIf="i>1 && i<3"> >
+      <div class="col-lg-5"  *ngIf="i>1 && i<3"> 
   
         <!-- Featured image -->
         <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
-            <img class="img-fluid" *ngIf="blog.imgUrl" src={{blog.imgUrl}} alt="Sample image">
-            <img class="img-fluid" *ngIf="!blog.imgUrl" src="https://mdbootstrap.com/img/Photos/Others/img (28).jpg" alt="Sample image">
+            <img class="img-fluid" *ngIf="blog.imageUrl" src={{blog.imageUrl}} alt="Sample image">
+            <img class="img-fluid" *ngIf="!blog.imageUrl" src="https://mdbootstrap.com/img/Photos/Others/img (28).jpg" alt="Sample image">
           <a>
             <div class="mask rgba-white-slight"></div>
           </a>
@@ -128,9 +129,9 @@
         <!-- Excerpt -->
         <p> {{blog.description | slice:0:270}}</p>
        
-        <p>by <a><strong>{{blog.author}}</strong></a>,  {{blog.created_date | date}}</p>
+        <p>by <a><strong style="text-transform: capitalize">{{blog.author}}</strong></a>,  {{blog.created_date | date}}</p>
         <!-- Read more button -->
-        <a mdbBtn color="indigo" mdbWavesEffect>Read more</a>
+        <a mdbBtn color="indigo" routerLink="/blog/{{blog._id }}" mdbWavesEffect>Read more</a>
   
       </div>
       <!-- Grid column -->

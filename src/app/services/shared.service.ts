@@ -1,46 +1,40 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { PostService } from './post.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  user:any;
-  blogs: any;
-  dataSource : any;
-  blogSource : any;
-  data : any;
+  user: any;
+  blogs: any = '';
+  blogData=new BehaviorSubject<any>('');
+  loginUser = new BehaviorSubject<any>('');
 
-  constructor(private postService: PostService) { 
-    this.getLoginData();
-    this.getBlogData();
-  }
-
-  getLoginData(){
+  constructor(private postService: PostService) {
     this.user = localStorage.getItem('users');
-    this.dataSource = new BehaviorSubject<any>(this.user);
-    this.data = this.dataSource.asObservable();
-    return this.data;
-  }
+    this.loginUser.next(this.user);
 
-  updatedLoginData(data){
-    this.dataSource.next(data);
-  }
-
-getBlogData(){
- this.postService.getPosts().subscribe(
-   (data) => {
-    this.blogSource = new BehaviorSubject<any>(data);
-  this.blogs = this.blogSource.asObservable(); 
+    this.postService.getPosts().subscribe((data) => {
+      this.blogs = data;
+      this.blogData.next(this.blogs);
+    })
 
   }
- )
- return this.blogs;
- 
-}
 
-  updateBlogData(data){
-    this.dataSource.next(data);
+  getLoginData(): Observable<any> {
+    return this.loginUser.asObservable();
+  }
+
+  updatedLoginData(data) {
+    this.loginUser.next(data);
+  }
+
+  getBlogData(): Observable<any> {
+    return this.blogData.asObservable();
+  }
+
+  updateBlogData(data) {
+    this.blogData.next(data);
   }
 }

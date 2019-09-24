@@ -1,6 +1,8 @@
-# Angular
+# Angular Blog Website
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.2.
+
+This project also have an admin panel with 3 different types of users (Admin, Manager, User ). They can login and manage website data according to given privileges.
 
 ## Development server
 

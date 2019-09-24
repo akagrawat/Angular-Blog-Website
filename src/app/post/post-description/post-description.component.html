@@ -1,24 +1,25 @@
-<div class="row">
-    <div class="z-depth-1 container">
-        <h1> Post Title</h1>
-        <p>by <a><strong>Admin</strong></a>, 22 Sep, 2019</p>
+<div class="row" >
+        <div class="container" >
+                <button mdbBtn style="border-radius:5px " type="button" (click)="goBack()" color="info" rounded="true" mdbWavesEffect>Go Back</button>
+
+              </div>
+    <div class="z-depth-1 custom-container container" >
+        <h1>{{blogDetail?.title}} </h1>
+        <p>by <a><strong style="text-transform: capitalize">{{blogDetail?.author}}</strong></a>, {{blogDetail?.created_date | date}}</p>
         <hr class="my-5">
  <div class="text-center" >
-        <img class="z-depth-1 img-fluid" src="http://www.transindiatravels.com/wp-content/uploads/city-palace-jaipur-2.jpg" alt="Sample blog">
+        <img class="z-depth-1 img-fluid"  style="max-height: 600px" src={{blogDetail?.imageUrl}} alt="Sample blog">
     </div>  
     <br />
     <br />
- 
 
+    <!-- http://www.transindiatravels.com/wp-content/uploads/city-palace-jaipur-2.jpg -->
     <div class="custom-p">
         <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum 
-                deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
+            {{blogDetail?.description}}
                 <br>
                 <br>
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                 sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. 
-                 Neque porro qui dolorem ipsum quia sit amet.
+                {{blogDetail?.description}}
         </p>
     </div>
     

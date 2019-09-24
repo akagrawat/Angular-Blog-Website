@@ -17,8 +17,8 @@ import { BlogComponent } from './dashboard/blog/blog.component'
                 UsersComponent,
                 BlogComponent],
   imports:[BrowserModule,
-    ReactiveFormsModule,  
-    AdminRoutingModule,
+          ReactiveFormsModule,  
+          AdminRoutingModule,
           MDBBootstrapModule.forRoot()],
   providers: [AuthGuard]
 })

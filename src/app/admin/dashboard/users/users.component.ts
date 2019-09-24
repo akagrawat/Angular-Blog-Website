@@ -12,11 +12,12 @@ export class UsersComponent implements OnInit {
 updateForm: FormGroup;
 userList: any;
 userId:any;
-validUser:any = [''];
+validUser: any = [''];
 userDetail: any;
 userDeleteStatus: Boolean = false;
 userUpdateStatus: Boolean = false;
 createUserStatus: Boolean = false;
+
  validationMsg = [
    {
      'firstname':[
@@ -49,7 +50,8 @@ createUserStatus: Boolean = false;
    },
   ]
 
-constructor(private fb: FormBuilder, private usersService: UsersService) {}
+constructor(private fb: FormBuilder, 
+            private usersService: UsersService) {}
 
   ngOnInit() {
     this.createUpdateForm();
@@ -70,7 +72,6 @@ getUsers(){
 
 deleteUser(userId){
 this.usersService.deleteUser(userId).subscribe((data) => {
-  console.log(data);
   this.getUsers();
   this.userDeleteStatus = true;
   setTimeout(()=> this.userDeleteStatus = false, 1000);
@@ -78,14 +79,12 @@ this.usersService.deleteUser(userId).subscribe((data) => {
 }
 
 updateUser(data){
-  console.log(data);
-  // set id at first position in object
   this.usersService.updateUser( this.userId,data).subscribe(
     (data)=> {
       this.userUpdateStatus = true;
       setTimeout(()=> this.userUpdateStatus = false, 1000);
-      console.log(data); 
-      this.getUsers();
+
+      this.getUsers(); // reload users after update
     }
   )
   
@@ -128,38 +127,38 @@ showData(data){
   
 }
 
-setData(data){
+setId(data){
   this.userId = data;
-
 }
+
+
 onSubmit(){
-  console.log(this.updateForm.value);
+
   // check user already exist or not
   this.validUser = this.userList.filter((data) => this.updateForm.value.email == data.email);
 
   if(this.validUser.length == 0)
   {
   this.usersService.createUser(this.updateForm.value).subscribe((data) =>{
-    console.log(data);
-    this.getUsers();
+    this.getUsers(); // show confirmation message
     this.createUserStatus = true;
     setTimeout(()=> this.createUserStatus = false, 1500)
   });
 }
 else{
-
 setTimeout(()=> this.validUser = '', 1500)
-
 }
   this.resetForm();
-  
+
 }
+
+
 resetForm(){
   this.updateForm.reset();
-
   this.userDetail  = '';
 }
 
+// bootstrap function
 onOpen(event: any) {
   console.log(event);
 }
