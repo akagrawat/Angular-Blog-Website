@@ -1,6 +1,18 @@
-# MdbAngularFree
+# Angular Blog Website(with Admin panel)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.2.
+
+This project have an admin panel with 3 different types of users (Admin, Manager, User ). They can login and manage website data according to given privileges.
+
+Demo URL- 
+
+Demo login credentials - https://blog-rj.firebaseapp.com/
+
+1.admin@gmail.com (Admin)
+2.manager@gmail.com (Manager)
+3.demo@gmail.com (Normal user)
+
+Password - 123456 (same for above users)
 
 ## Development server
 

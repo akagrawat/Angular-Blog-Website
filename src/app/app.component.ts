@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
             this.showHead = false;
           }else if(event['url'] == '/admin/users'){
             this.showHead = false;
+          }else if(event['url'] == '/admin/blog'){
+            this.showHead = false;
           }
             else {
             // console.log("NU")

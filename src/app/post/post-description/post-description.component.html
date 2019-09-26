@@ -1,0 +1,31 @@
+<div class="row" >
+        <div class="container" >
+                <button mdbBtn style="border-radius:5px " type="button" (click)="goBack()" color="info" rounded="true" mdbWavesEffect>Go Back</button>
+
+              </div>
+    <div class="z-depth-1 custom-container container" >
+        <h1>{{blogDetail?.title}} </h1>
+        <p>by <a><strong style="text-transform: capitalize">{{blogDetail?.author}}</strong></a>, {{blogDetail?.created_date | date}}</p>
+        <hr class="my-5">
+ <div class="text-center" >
+        <img class="z-depth-1 img-fluid"  style="max-height: 600px" src={{blogDetail?.imageUrl}} alt="Sample blog">
+    </div>  
+    <br />
+    <br />
+
+    <div  > 
+          <app-loader></app-loader>
+         
+        </div>
+    <!-- http://www.transindiatravels.com/wp-content/uploads/city-palace-jaipur-2.jpg -->
+    <div class="custom-p">
+        <p>
+            {{blogDetail?.description}}
+                <br>
+                <br>
+                {{blogDetail?.description}}
+        </p>
+    </div>
+    
+    </div>
+</div>
