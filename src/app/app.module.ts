@@ -51,7 +51,8 @@ import { LoaderComponent } from './loader/loader.component';
   ],
   providers: [ManagerGuard,LoaderService,
   { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports:[LoaderComponent]
 })
 export class AppModule { }
     

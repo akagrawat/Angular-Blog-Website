@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   loginData = { username: '', password: '' };
   returnUrl: String;
-  invalidUser: String = '';
+  invalidUser: any = '';
   user: any;
   userList:any;
 
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
           // redirect according to roles
           if (user.success.role == 'admin' || user.success.role == 'manager') {
-            this.router.navigate(['admin'])
+            this.router.navigate(['admin']);
           } 
           else {
             this.router.navigate(['profile']);
