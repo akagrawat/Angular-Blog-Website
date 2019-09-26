@@ -1,0 +1,164 @@
+<div class="dashboad-view">
+    <!-- Heading -->
+    <mdb-card class="mb-4 wow fadeIn">
+    
+            <!--Card content-->
+            <mdb-card-body class="d-sm-flex justify-content-between">
+        
+                <h4 class="mb-sm-0 pt-3">
+                    <a target="_blank">Recent Blogs</a>
+                </h4>
+                <a (click)="frame.show()" class="ml-1 nav-link border border-light rounded" mdbWavesEffect>
+                        <mdb-icon far icon="edit" class=" left"></mdb-icon> Add Post</a>
+            </mdb-card-body>
+        
+        </mdb-card>
+        <!-- Heading -->
+    </div>
+   
+    <!-- Message-->
+    <div class="container" *ngIf="blogStatus == 'create'" >
+      <div class="alert alert-success text-center" role="alert" style="font-weight: 400">
+          Blog created successfully   !!!!!
+      </div>
+    </div>
+    <div class="container" *ngIf="blogStatus == 'update'" >
+      <div class="alert alert-success text-center" role="alert" style="font-weight: 400">
+          Blog updated successfully  !!!!!
+      </div>
+  </div>
+   
+
+    <div class="row">
+    <div class="container z-depth-1">
+        <table mdbTable striped="true">
+            <thead>
+              <tr>
+                <th >Image</th>
+                <th >Title</th>
+                <th >Author</th>
+                <th >Category</th>
+                <th >Date</th>
+                <th>Edit</th>
+                <th>View</th>
+              
+              </tr>
+            </thead>
+            <tbody>
+              <tr mdbTableCol *ngFor="let blog of blogs">
+                <td ><img class="z-depth-1" src={{blog.imageUrl}} alt="Blog Image" width="100px"></td>
+                <td>{{blog.title}}</td>
+                <td style="text-transform: capitalize">{{blog.author}}</td>
+                <td>{{blog.category}}</td> 
+                <td>{{blog.created_date | date}}</td>
+                <td (click)="showData(blog)"><mdb-icon id="edit" class="edit" fas icon="edit" size="lg" (click)="frame.show();getBlogId(blog._id)"></mdb-icon></td>
+                <td ><mdb-icon size="lg" class="edit" fas icon="eye" routerLink="/blog/{{blog._id}}"></mdb-icon></td>
+              </tr> 
+            </tbody>
+          </table>
+    </div>
+</div>
+    
+
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="height: 600px; overflow:scroll">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Post</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide();resetForm()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form [formGroup]="blogForm">
+      <div class="modal-body mx-3">
+
+          <div class="md-form mb-4 ">
+              <mdb-icon fas icon="book" class="prefix grey-text"></mdb-icon>
+              <input type="text" id="defaultForm-title"  formControlName="title" class="form-control"
+                     mdbInput mdbValidate>
+              <label for="defaultForm-title">Post Title</label>
+              <mdb-error *ngFor="let validation of validationMsg">
+                  <span *ngFor="let msg of validation.title">
+                    <span  *ngIf="blogForm.get('title').hasError(msg.type) && (blogForm.get('title').dirty || blogForm.get('title').touched)">
+                        {{msg.message}}
+                    </span>
+                    </span>
+                  </mdb-error>
+            </div>
+
+        <div class="md-form mb-4" *ngIf="blogInfo">
+          <mdb-icon fas icon="pen-nib" class="prefix grey-text"></mdb-icon>
+          <input disabled type="text" id="defaultForm-author" formControlName="author" class="form-control"
+                 mdbInput mdbValidate>
+          <label for="defaultForm-author">Author</label>
+          <mdb-error *ngFor="let validation of validationMsg">
+              <span *ngFor="let msg of validation.author">
+                <span  *ngIf="blogForm.get('author').hasError(msg.type) && (blogForm.get('author').dirty || blogForm.get('author').touched)">
+                    {{msg.message}}
+                </span>
+                </span>
+              </mdb-error>
+        </div>
+
+       
+        <div class="md-form  mb-4">
+           
+         
+            <mdb-icon fas icon="clipboard-list" class="prefix grey-text"></mdb-icon>
+            <label for="defaultForm-category">Category</label>
+         
+            <select formControlName="category" class="browser-default custom-select mb-4">
+              <option *ngFor="let category of Category" [value]="category" >{{category}}</option>
+              
+            </select>
+           
+            <mdb-error *ngFor="let validation of validationMsg">
+                <span *ngFor="let msg of validation.category">
+                  <span  *ngIf="blogForm.get('category').hasError(msg.type) && (blogForm.get('category').dirty || blogForm.get('category').touched)">
+                      {{msg.message}}
+                  </span>
+                  </span>
+                </mdb-error>
+          </div>
+
+      
+          <div class="md-form mb-4">
+              <mdb-icon fas icon="file-image" class="prefix grey-text"></mdb-icon>
+              <input type="url" id="defaultForm-imageUrl" class="form-control" formControlName="imageUrl"  
+                     mdbInput mdbValidate>
+                     <label for="defaultForm-url">Image Url:</label>
+                     <mdb-error *ngFor="let validation of validationMsg">
+                        <span *ngFor="let msg of validation.imageUrl">
+                          <span  *ngIf="blogForm.get('imageUrl').hasError(msg.type) && (blogForm.get('imageUrl').dirty || blogForm.get('imageUrl').touched)">
+                              {{msg.message}}
+                          </span>
+                          </span>
+                        </mdb-error>
+            </div>
+            <div class="md-form mb-4">
+                <mdb-icon fas icon="paragraph" class="prefix grey-text"></mdb-icon>
+                <textarea type="text" id="form8" class="form-control" rows="5" mdbInput mdbValidate
+                formControlName="description" ></textarea>
+                <label for="defaultForm-description"> Description</label>
+                <mdb-error *ngFor="let validation of validationMsg">
+                    <span *ngFor="let msg of validation.description">
+                      <span  *ngIf="blogForm.get('description').hasError(msg.type) && (blogForm.get('description').dirty || blogForm.get('description').touched)">
+                          {{msg.message}}
+                      </span>
+                      </span>
+                    </mdb-error>
+              </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center" *ngIf="!blogInfo"> 
+          <button mdbBtn [disabled]="!blogForm.valid" (click)="createBlog(this.blogForm.value); frame.hide()" type="submit" color="default" class="waves-light" mdbWavesEffect>Save</button>
+        </div>
+      <div class="modal-footer d-flex justify-content-center" *ngIf="blogInfo">
+        <button mdbBtn [disabled]="!blogForm.valid" (click)="updateBlog(this.blogForm.value); frame.hide()" type="submit" color="default" class="waves-light" mdbWavesEffect>Update</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 <!--Navbar-->
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark purple lighten-1" [containerInside]="false">
+<mdb-navbar SideClass="navbar sticky-top  navbar-expand-lg navbar-dark purple lighten-1" [containerInside]="false">
 
     <!-- Navbar brand -->
     <mdb-navbar-brand><a class="navbar-brand" routerLink="/home">Blog</a></mdb-navbar-brand>
@@ -13,7 +13,7 @@
           <a class="nav-link waves-light" routerLink="/home"  mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-light" mdbWavesEffect>Products</a>
+          <a class="nav-link waves-light" routerLink="/blog" mdbWavesEffect>Blog</a>
         </li>
         <li class="nav-item">
           <a class="nav-link waves-light" routerLink="/aboutus" mdbWavesEffect>About us</a>
@@ -24,19 +24,21 @@
     
       </ul>
       <!-- Links -->
-  
       <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item">
-          <a class="nav-link">1 <mdb-icon fas icon="envelope"></mdb-icon></a>
+        <li class="nav-item" *ngIf="!user">
+          <a class="nav-link" routerLink="/login">
+            <button mdbBtn type="button" class="custom-btn" size="sm" color="light" rounded="true" mdbWavesEffect>Login</button>
+          </a>
         </li>
-        <li class="nav-item avatar dropdown" dropdown>
+        <li class="nav-item avatar dropdown" *ngIf="user" dropdown>
           <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
             <img width="30px" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="img-fluid rounded-circle z-depth-0"></a>
           <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
             <a class="dropdown-item waves-light" routerLink="/profile">My account</a>
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Log out</a>
-          </div>
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">Log out</a>
+          </div>  
         </li>
+
       </ul>
     </links>
     <!-- Collapsible content -->

@@ -1,0 +1,64 @@
+<div class="container">
+    <!-- Section: Blog v.1 -->
+    <section class="my-5">
+
+       <app-loader></app-loader>
+    
+        <!-- Section heading -->
+        <h2 class="h1-responsive font-weight-bold text-center my-5">Posts</h2>
+        <!-- Section description -->
+        <p class="text-center w-responsive mx-auto mb-5">Duis aute irure dolor in reprehenderit in voluptate velit
+          esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+          qui officia deserunt mollit anim id est laborum.</p>
+
+          <div *ngFor="let blog of blogs" >
+        <!-- Grid row -->
+        <div class="row">
+      
+          <!-- Grid column -->
+          
+          <div class="col-lg-5" >
+      
+            <!-- Featured image -->
+            <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4 waves-light" mdbWavesEffect>
+              <img class="img-fluid" src={{blog.imageUrl}} alt="Sample image">
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+                                             
+          </div>
+          <!-- Grid column -->
+      
+          <!-- Grid column -->
+          <div class="col-lg-7" >
+      
+            <!-- Category -->
+            <a href="#!" class="green-text">
+              <h6 class="font-weight-bold mb-3"><mdb-icon fas clas    s="pr-2"></mdb-icon>{{blog.category}}</h6>
+            </a>
+            <!-- Post title -->
+            <h3 class="font-weight-bold mb-3"><strong>{{blog.title}}</strong></h3>
+            <!-- Excerpt -->
+            <p>{{blog.description    |  slice:0:270}}</p>
+            <!-- Post data -->
+            <p>by <a><strong style="text-transform: capitalize;color:#2196f3">{{blog.author}}</strong></a>, {{blog.created_date | date}}</p>
+            <!-- Read more button -->
+            <a mdbBtn color="success" routerLink="/blog/{{blog._id }}" mdbWavesEffect>Read more</a>
+      
+          </div>
+          <!-- Grid column -->
+      
+        </div>
+    
+        <!-- Grid row -->
+      
+        <hr class="my-5">
+      
+        <!-- Grid row -->
+    </div>
+      
+      </section>
+      <!-- Section: Blog v.1 -->
+    
+    </div>

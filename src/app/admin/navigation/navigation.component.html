@@ -11,34 +11,32 @@
 
         <!-- user name-->
 
-        <h4 class="name text-center">Martha Smith</h4>
+        <h4 style="text-transform: capitalize" class="name text-center" >{{userDetail.success.role}}</h4>
 
 
         <div class="list-group list-group-flush">
-
-            <a routerLink="dashboards/v1" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
+            <a routerLink="/admin/dashboard" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
                 <mdb-icon fas icon="chart-pie" class="mr-3"></mdb-icon>Dashboard
             </a>
-            <a routerLink="profiles/profile1" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
-                <mdb-icon fas icon="user" class="mr-3"></mdb-icon>Profile</a>
-            <a routerLink="tables/table1" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
-                <mdb-icon fas icon="table" class="mr-3"></mdb-icon>Tables</a>
+            <a *ngIf="!managerData" routerLink="/admin/users" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
+                <mdb-icon fas icon="user" class="mr-3"></mdb-icon>Users</a>
+            <a routerLink="/admin/blog" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
+                <mdb-icon fas icon="table" class="mr-3"></mdb-icon>Blog</a>
             <a routerLink="maps/map1" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
                 <mdb-icon far icon="map" class="mr-3"></mdb-icon>Maps</a>
             <a routerLink="nonExistingPath" routerLinkActive="active" class="list-group-item list-group-item-action waves-effect">
                 <mdb-icon fas icon="exclamation" class="mr-3"></mdb-icon>404</a>
-
         </div>
 
     </div>
     <!-- Sidebar -->
 
     <!--Navbar-->
-    <mdb-navbar [containerInside]="false" SideClass="navbar navbar-expand-lg navbar-light white">
+    <mdb-navbar [containerInside]="false" SideClass="navbar sticky-top navbar-expand-lg navbar-light white" >
 
         <!-- Navbar brand -->
         <logo class="ml-3">
-            <a class="navbar-brand" href="https://mdbootstrap.com/angular/angular-bootstrap-getting-started/">
+            <a class="navbar-brand" routerLink="/admin/dashboard">
                 <strong class="blue-text">Blog</strong>
             </a>
         </logo>
@@ -49,25 +47,26 @@
             <!-- Links -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" mdbWavesEffect>Home
+                    <a class="nav-link" routerLink="/home" mdbWavesEffect>Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"   mdbWavesEffect>Blog</a>
+                    <a class="nav-link"  routerLink="/admin/blog" mdbWavesEffect>Blog</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" mdbWavesEffect>Users</a>
+                <li class="nav-item" *ngIf="managerData">
+                    <a class="nav-link" routerLink="/admin/users" mdbPopover="You are not authorised to access users"
+                    placement="right"
+                    mdbPopoverHeader="Popover on right" mdbWavesEffect>Users</a>
+                   
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link"  mdbWavesEffect>Manager</a>
-                </li>
+              
             </ul>
             <!-- Links -->
 
             <!-- Search form -->
-           <!-- <ul class="navbar-nav nav-flex-icons">
-
+           <ul class="navbar-nav nav-flex-icons">
+<!-- 
                     <li class="nav-item">
                         <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank" mdbWavesEffect>
                             <mdb-icon fab icon="facebook-f"></mdb-icon>
@@ -83,12 +82,19 @@
                             target="_blank" mdbWavesEffect>
                             <mdb-icon fab icon="github" class="mr-2"></mdb-icon>MDB GitHub
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
-                        <a href="https://mdbootstrap.com/products/angular-ui-kit/" class="ml-1 nav-link border border-light rounded" mdbWavesEffect>
-                            <mdb-icon far icon="gem" class=" left"></mdb-icon> Go Pro</a>
+                            <a mdbWavesEffect routerLink="/profile" type="button" class="nav-link waves-light" mdbWavesEffect>
+                                    <img width="30px" src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2831%29.jpg" alt="" class="img-fluid rounded-circle z-depth-0"></a> 
                     </li>
-                </ul> -->
+
+                    <li class="nav-item">
+                            
+                        
+                        <a (click)="logout()" class="ml-1 nav-link border border-light rounded" mdbWavesEffect>
+                            <mdb-icon far icon="gem" class=" left"></mdb-icon> Logout</a>
+                    </li>
+                </ul>
         </links>
         <!-- Collapsible content -->
 

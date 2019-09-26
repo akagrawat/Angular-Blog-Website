@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+userDetail: any;
+managerData: String;
+
+ constructor(private authService: AuthService) {
+
+   }
 
   ngOnInit() {
+    this.userDetail = JSON.parse(localStorage.getItem('users'));
+    if(this.userDetail.success){
+      (this.userDetail.success.role == "manager" ? this.managerData = this.userDetail.success.role : this.managerData = '' );
+    }  
+  }
+
+  logout(){
+    this.authService.logout();
   }
 
 }

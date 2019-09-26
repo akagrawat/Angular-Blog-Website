@@ -8,3 +8,15 @@
     background-size: cover;
     background-position: center center;
 }
+
+  .invalid{
+    border-bottom: 3px solid #a94442; /* red */
+  }
+
+  .custom-p {
+    color: red;
+    text-transform: capitalize;
+    margin-top: 10px;
+  }
+  
+  //[ngStyle]="{'border-bottom':email.valid ? '3px solid #42A948': '3px solid #a94442'}"
