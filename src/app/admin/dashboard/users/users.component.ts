@@ -23,13 +23,16 @@ createUserStatus: Boolean = false;
      'firstname':[
      {type: 'required', message: 'Firstname is required'},
      {type: 'maxlength', message: 'Enter less than 25 characters'},
-     {type: 'minlength', message: 'Enter minimum 3 characters'},]
+     {type: 'minlength', message: 'Enter minimum 3 characters'},
+     {type: 'pattern', message: 'Enter alphabets only'},]
    },
    {
     'lastname':[
     {type: 'required', message: 'Lastname is required'},
     {type: 'maxlength', message: 'Enter less than 25 characters'},
-    {type: 'minlength', message: 'Enter minimum 2 characters'},]
+    {type: 'minlength', message: 'Enter minimum 2 characters'},
+    {type: 'pattern', message: 'Enter alphabets only'},
+  ]
   },
 
    
@@ -96,11 +99,13 @@ createUpdateForm(){
     firstname: ['', Validators.compose([
       Validators.maxLength(25),
       Validators.minLength(3),
+      Validators.pattern('[a-zA-Z][a-zA-Z ]+'),
       Validators.required
     ])],
     lastname: ['', Validators.compose([
       Validators.maxLength(25),
       Validators.minLength(2),
+      Validators.pattern('[a-zA-Z][a-zA-Z ]+'),
       Validators.required
     ])],
     address: ['', Validators.compose([

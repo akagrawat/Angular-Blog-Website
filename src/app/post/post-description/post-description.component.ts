@@ -2,23 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-post-description',
   templateUrl: './post-description.component.html',
   styleUrls: ['./post-description.component.scss']
 })
+
 export class PostDescriptionComponent implements OnInit {
   blogDetail: any;
-
+  isLoading: Subject<boolean>;
+  loader:any;
   constructor(private postService: PostService, 
               private route: ActivatedRoute, 
-              private location: Location) { }
+              private location: Location) { 
+              
+              }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.getPostDescription(id);
-   
   }
   
   // Blog details according to id

@@ -15,7 +15,7 @@
         </mdb-card>
         <!-- Heading -->
     </div>
-
+   
     <!-- Message-->
     <div class="container" *ngIf="blogStatus == 'create'" >
       <div class="alert alert-success text-center" role="alert" style="font-weight: 400">
@@ -63,7 +63,7 @@
 <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="height: 600px; overflow:scroll">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">Post</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide();resetForm()">

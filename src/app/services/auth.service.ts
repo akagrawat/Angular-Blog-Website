@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { User } from '../shared/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map,catchError } from 'rxjs/operators';
@@ -10,7 +9,7 @@ import { SharedService } from '../services/shared.service';
   providedIn: 'root'
 })
 export class AuthService {
-  loginUrl:string = 'https://accedo-video-app-api.herokuapp.com/login'
+  loginUrl:string = 'https://accedo-video-app-api.herokuapp.com/login';
   userDetails:any;
   user:any;
   userStatus = false;

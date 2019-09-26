@@ -10,7 +10,7 @@
             <div class="avatar mx-auto">
                 <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2831%29.jpg" class="rounded-circle">
             </div>
-
+          <app-loader></app-loader>
             <!-- user name-->
 
             <h4 style="text-transform: capitalize" class="name">{{userDetails.firstname}} {{userDetails.lastname}}</h4>
@@ -32,9 +32,11 @@
                     
 
             <div class="text-center">
+              <div *ngIf="validUser.success">
                 <button *ngIf="validUser.success.role == 'manager' || validUser.success.role == 'admin'" mdbBtn routerLink="/admin" color="primary" class="waves-light" type="button"  mdbWavesEffect>
                     Admin Dashboard
                   </button>
+                </div>
                 <button mdbBtn class="btn btn-unique" type="button" (click)="test.toggle()" mdbWavesEffect>
                         Edit Profile
                       </button>

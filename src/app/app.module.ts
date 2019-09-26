@@ -15,11 +15,14 @@ import { Page404Component } from './page404/page404.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PostComponent } from './post/post.component';
 import { ManagerGuard } from './services/guards/manager-guard.service';
 import { PostDescriptionComponent } from './post/post-description/post-description.component';
-
+import { LoaderService } from './services/loader.service';
+import { LoaderInterceptor } from './shared/loader.interceptor';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import { PostDescriptionComponent } from './post/post-description/post-descripti
     LoginComponent,
     PostComponent,
     PostDescriptionComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,9 +46,11 @@ import { PostDescriptionComponent } from './post/post-description/post-descripti
     AppRoutingModule,
     AdminModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
-  providers: [ManagerGuard],
+  providers: [ManagerGuard,LoaderService,
+  { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../services/shared.service';
-
+import {  LoaderService } from '../services/loader.service';
+import { Subject } from 'rxjs';
+import { NgxSpinnerService } from "ngx-spinner";
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -8,10 +11,15 @@ import { SharedService } from '../services/shared.service';
 })
 export class PostComponent implements OnInit {
   blogs: any;
-  constructor(private sharedService: SharedService) { }
+
+  constructor(private sharedService: SharedService,
+              
+              private spinner: NgxSpinnerService,
+              private http: HttpClient) { }
 
   ngOnInit() {
     this.getPosts();
+  
   }
 
   getPosts() {
@@ -27,4 +35,8 @@ export class PostComponent implements OnInit {
     });
   }
 
+  
+
+
+  
 }

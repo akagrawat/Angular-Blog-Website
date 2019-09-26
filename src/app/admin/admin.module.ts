@@ -8,7 +8,7 @@ import { AdminRoutingModule } from '../admin/admin-routing.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthGuard } from '../services/guards/auth-guard.service';
 import { ReactiveFormsModule} from '@angular/forms';
-import { BlogComponent } from './dashboard/blog/blog.component'
+import { BlogComponent } from './dashboard/blog/blog.component';
 
 @NgModule({
   declarations:[AdminComponent,

@@ -30,7 +30,7 @@ posts: any;
   getFeaturedPost(category)
 { 
   this.sharedService.getBlogData().subscribe((data) =>{
-     this.posts = data;
+     this.posts = data; 
      if(this.posts){
        this.blogs.push(this.posts.filter((data) => category == data.category)[0]);
      }
