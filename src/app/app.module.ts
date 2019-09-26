@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminModule } from '../app/admin/admin.module';
+import { CommonModule } from '../app/shared/common/common.module';
 import { ReactiveFormsModule} from '@angular/forms'
 
 import { AppComponent } from './app.component';
@@ -21,8 +22,7 @@ import { ManagerGuard } from './services/guards/manager-guard.service';
 import { PostDescriptionComponent } from './post/post-description/post-description.component';
 import { LoaderService } from './services/loader.service';
 import { LoaderInterceptor } from './shared/loader.interceptor';
-import { NgxSpinnerModule } from "ngx-spinner";
-import { LoaderComponent } from './loader/loader.component';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +36,6 @@ import { LoaderComponent } from './loader/loader.component';
     LoginComponent,
     PostComponent,
     PostDescriptionComponent,
-    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,12 +46,12 @@ import { LoaderComponent } from './loader/loader.component';
     AdminModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    CommonModule
   ],
   providers: [ManagerGuard,LoaderService,
   { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}],
   bootstrap: [AppComponent],
-  exports:[LoaderComponent]
+ 
 })
 export class AppModule { }
     

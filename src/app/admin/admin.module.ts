@@ -9,6 +9,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthGuard } from '../services/guards/auth-guard.service';
 import { ReactiveFormsModule} from '@angular/forms';
 import { BlogComponent } from './dashboard/blog/blog.component';
+import { CommonModule} from '../shared/common/common.module';
 
 @NgModule({
   declarations:[AdminComponent,
@@ -17,7 +18,8 @@ import { BlogComponent } from './dashboard/blog/blog.component';
                 UsersComponent,
                 BlogComponent],
   imports:[BrowserModule,
-          ReactiveFormsModule,  
+          ReactiveFormsModule, 
+          CommonModule, 
           AdminRoutingModule,
           MDBBootstrapModule.forRoot()],
   providers: [AuthGuard]

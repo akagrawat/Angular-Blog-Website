@@ -12,10 +12,12 @@ import { UsersService} from '../services/users.service';
 export class LoginComponent implements OnInit {
 
   loginData = { username: '', password: '' };
+  signupData = { firstname: '', lastname:'', email:'', password:'', address:''};
   returnUrl: String;
   invalidUser: any = '';
   user: any;
   userList:any;
+  loginSignupStatus: boolean;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -39,6 +41,8 @@ export class LoginComponent implements OnInit {
     if (this.user) {
       this.router.navigate(['profile']);
     }
+
+    this.loginSignupStatus = true;
   }
 
   onSubmit() {
@@ -91,5 +95,35 @@ export class LoginComponent implements OnInit {
 
   }
 
+  signUp(){
+    let userDetail;
+    userDetail =this.userList.filter(
+      (data)=> (this.signupData.email == data.email &&
+      this.signupData.password == data.password ));
+      
+    if(userDetail.length == 0){
+      console.log('Login successfully');
+      this.usersServices.createUser(this.signupData).subscribe((data) =>{
+        console.log(data.success);
+        let localData  = [];
+        localData.push(data.success);
+        this.sharedService.updatedLoginData(localData);
+        localStorage.setItem('users', JSON.stringify(localData));
+        this.router.navigate(['profile']);
+      })
+  } else {
+    alert('User already exist with this email');
+    
+  }
 
+}
+
+signupStatus(){
+  if(this.loginSignupStatus){
+  this.loginSignupStatus = false;
+  }else{
+    this.loginSignupStatus = true;
+  }
+
+}
 }
