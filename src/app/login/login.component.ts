@@ -11,10 +11,10 @@ import { UsersService} from '../services/users.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginData = { username: '', password: '' };
-  signupData = { firstname: '', lastname:'', email:'', password:'', address:''};
+  loginData = { username: '', password: '',};
+  signupData = { firstname: '', lastname:'', email:'', password:'', address:'',};
   returnUrl: String;
-  invalidUser: any = '';
+  invalidUser: any = '';  
   user: any;
   userList:any;
   loginSignupStatus: boolean;
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     let userInfo;
     this.authService.login(this.loginData).subscribe(
-      data => {
+      (data) => {
 
         if (data.success) {
           console.log('Login successfully');
@@ -88,8 +88,8 @@ export class LoginComponent implements OnInit {
           console.log(data);
         }
       },
-      err => {
-        console.log('error occurs', err);
+      error => {
+        console.log('error occurs' + error);
       }
     );
 

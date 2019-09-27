@@ -19,6 +19,7 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.getPosts();
+    window.scroll(0,0);
   
   }
 

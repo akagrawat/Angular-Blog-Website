@@ -19,6 +19,7 @@ posts: any;
     this.getFeaturedPost('Food');
     this.getFeaturedPost('Travel');
     this.getFeaturedPost('LifeStyle');
+    window.scrollTo(0,0);
    
 
   }

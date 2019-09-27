@@ -4,12 +4,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 This project have an admin panel with 3 different types of users (Admin, Manager, User ). They can login and manage website data according to given privileges.
 
-Demo URL- https://blog-rj.firebaseapp.com/
+#Demo URL- https://blog-rj.firebaseapp.com/
 
-Demo login credentials - 
+#Demo login credentials - 
 
 1.admin@gmail.com (Admin)
+
 2.manager@gmail.com (Manager)
+
 3.demo@gmail.com (Normal user)
 
 Password - 123456 (same for above users)

@@ -9,7 +9,7 @@ import { SharedService } from '../services/shared.service';
   providedIn: 'root'
 })
 export class AuthService {
-  loginUrl:string = 'https://accedo-video-app-api.herokuapp.com/login';
+  loginUrl:string = 'https://accedo-video-app-api.herokuapp.com/login/';
   userDetails:any;
   user:any;
   userStatus = false;
@@ -24,10 +24,7 @@ export class AuthService {
 
   
   login(data: any): Observable<any>{
-    return this.http.post<any>(this.loginUrl,data).pipe(catchError(err => {
-      console.log('error is coming', err);
-      return throwError(err);
-    })  )
+    return this.http.post<any>(this.loginUrl,data);
 
   }
 

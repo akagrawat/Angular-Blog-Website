@@ -56,6 +56,7 @@ export class BlogComponent implements OnInit {
 });
 
    this.createBlogForm();
+   window.scroll(0,0);
    
   }
 
@@ -106,6 +107,8 @@ export class BlogComponent implements OnInit {
       this.resetForm();
       setTimeout(()=> this.blogStatus = '', 1500)
     });
+
+    window.scroll(0,0);
   }
 
   createBlog(data){
@@ -116,7 +119,8 @@ export class BlogComponent implements OnInit {
     this.postService.createPost(data).subscribe(
       (data) => {this.blogStatus = 'create'; // show confirmation message
       this.getBlogs(); this.resetForm();
-      setTimeout(()=> this.blogStatus = '', 1500)})
+      setTimeout(()=> this.blogStatus = '', 1500)});
+      window.scroll(0,0);
   }
 
   showData(data){

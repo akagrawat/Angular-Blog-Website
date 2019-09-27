@@ -59,6 +59,7 @@ constructor(private fb: FormBuilder,
   ngOnInit() {
     this.createUpdateForm();
     this.getUsers();
+    window.scroll(0,0);
 }
 
 getUsers(){
@@ -71,6 +72,7 @@ getUsers(){
        user.address = 'India';
      }
    }});
+
 }
 
 deleteUser(userId){
@@ -79,6 +81,7 @@ this.usersService.deleteUser(userId).subscribe((data) => {
   this.userDeleteStatus = true;
   setTimeout(()=> this.userDeleteStatus = false, 1000);
 })
+window.scroll(0,0);
 }
 
 updateUser(data){
@@ -92,6 +95,7 @@ updateUser(data){
   )
   
   this.resetForm();  
+  window.scroll(0,0);
 }
 
 createUpdateForm(){
@@ -154,6 +158,7 @@ else{
 setTimeout(()=> this.validUser = '', 1500)
 }
   this.resetForm();
+  window.scroll(0,0);
 
 }
 
