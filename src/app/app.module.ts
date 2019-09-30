@@ -1,10 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AdminModule } from '../app/admin/admin.module';
-import { CommonModule } from '../app/shared/common/common.module';
+import { LoaderModule } from '../app/shared/common/common.module';
 import { ReactiveFormsModule} from '@angular/forms'
-
 import { AppComponent } from './app.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +20,9 @@ import { ManagerGuard } from './services/guards/manager-guard.service';
 import { PostDescriptionComponent } from './post/post-description/post-description.component';
 import { LoaderService } from './services/loader.service';
 import { LoaderInterceptor } from './shared/loader.interceptor';
+import { AuthGuard } from './services/guards/auth-guard.service';
+import { AdminComponent} from '../app/admin/admin.component';
+import { NavigationComponent } from './admin/navigation/navigation.component';
 
 
 @NgModule({
@@ -36,6 +37,8 @@ import { LoaderInterceptor } from './shared/loader.interceptor';
     LoginComponent,
     PostComponent,
     PostDescriptionComponent,
+    AdminComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -43,12 +46,11 @@ import { LoaderInterceptor } from './shared/loader.interceptor';
     MDBBootstrapModule.forRoot(),
     FormsModule,
     AppRoutingModule,
-    AdminModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CommonModule
+    LoaderModule
   ],
-  providers: [ManagerGuard,LoaderService,
+  providers: [AuthGuard,ManagerGuard,LoaderService,
   { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}],
   bootstrap: [AppComponent],
  

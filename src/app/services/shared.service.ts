@@ -17,7 +17,8 @@ export class SharedService {
 
     this.postService.getPosts().subscribe((data) => {
       this.blogs = data;
-      this.blogData.next(this.blogs);
+
+      this.blogData.next(this.blogs.reverse());
     })
 
   }

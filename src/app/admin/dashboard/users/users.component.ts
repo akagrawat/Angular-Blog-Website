@@ -64,7 +64,7 @@ constructor(private fb: FormBuilder,
 
 getUsers(){
   this.usersService.getUsers().subscribe((data) => {
-    this.userList = data;
+    this.userList = data.reverse();
 
     // Set default address if user doesn't have 
    for(let user of this.userList){
