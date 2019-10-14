@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderModule } from '../app/shared/common/common.module';
-import { ReactiveFormsModule} from '@angular/forms'
+import { ReactiveFormsModule} from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppComponent } from './app.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule } from '@angular/forms';
@@ -48,7 +49,8 @@ import { NavigationComponent } from './admin/navigation/navigation.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    LoaderModule
+    LoaderModule,
+    DragDropModule
   ],
   providers: [AuthGuard,ManagerGuard,LoaderService,
   { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}],

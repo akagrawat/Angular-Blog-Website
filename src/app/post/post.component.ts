@@ -4,13 +4,14 @@ import {  LoaderService } from '../services/loader.service';
 import { Subject } from 'rxjs';
 import { NgxSpinnerService } from "ngx-spinner";
 import { HttpClient } from '@angular/common/http';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  blogs: any;
+  blogs: any[] ;
 
   constructor(private sharedService: SharedService,
               
@@ -36,7 +37,11 @@ export class PostComponent implements OnInit {
     });
   }
 
-  
+  // ngDragDrop
+  drop(event: CdkDragDrop<any[]>){
+    moveItemInArray(this.blogs,event.previousIndex,event.currentIndex)
+
+  }
 
 
   
