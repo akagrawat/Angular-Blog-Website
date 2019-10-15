@@ -1,7 +1,7 @@
 <div class="row">
   <div class="container">
     <!-- Material form login -->
-    <div class="form" *ngIf="loginSignupStatus" >
+    <div cdkDrag class="form" *ngIf="loginSignupStatus" cdkDragBoundary=".container" mdbTooltip="Drag and Drop model" placement="top">
       <mdb-card>
 
         <mdb-card-header class="info-color white-text text-center py-4">
